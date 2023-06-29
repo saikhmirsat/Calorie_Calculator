@@ -13,14 +13,27 @@ TableRoute.get('/', async (req, res) => {
     }
 })
 
-TableRoute.get('/userdata', async (req, res) => {
+// TableRoute.get('/userdata', async (req, res) => {
+//     try {
+//         let { user } = req.params
+//         const data = await TableModel.find({ user })
+//         res.send(data)
+//     } catch (e) {
+//         res.send({ 'msg': 'Error' })
+//     }
+// })
+TableRoute.get('/:user', async (req, res) => {
     try {
-        let { user } = req.body
+        const { user } = req.params
         const data = await TableModel.find({ user })
+
         res.send(data)
-    } catch (e) {
-        res.send({ 'msg': 'Error' })
+
+    } catch (err) {
+        res.send({ "msg": "Not get user request", "sucess": false })
+        console.log(err)
     }
+
 })
 
 TableRoute.post('/add', async (req, res) => {

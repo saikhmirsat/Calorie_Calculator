@@ -1,0 +1,10 @@
+.food_and_colorie_con {
+    border: 1px solid black;
+    display: grid;
+    grid-template-columns: repeat(2, 60% 40%);
+}
+
+.food_and_colorie_con>div {
+    border: 1px olivedrab solid;
+    height: 400px;
+}

@@ -1,4 +1,4 @@
-.navbar_main {
+/* .navbar_main {
     border: 1px solid black;
     background-color: #0177fd;
 
@@ -29,10 +29,42 @@
 
 .navbar_main img {
     /* border: 1px solid green; */
-    width: 100px;
+/* width: 100px;
 }
 
 .register_login {
     display: flex;
     gap: 20px;
+/* } */
+.navBar {
+    /* border: 1px solid red; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navBar>div:nth-child(1) {
+    /* margin-top: 20px; */
+}
+
+.navBar img {
+    /* border: 1px solid green; */
+    width: 80px;
+    margin-left: 100%;
+}
+
+.navBar>div:nth-child(2) {
+    width: 50%;
+    /* border: 1px solid yellow; */
+    display: flex;
+    font-size: large;
+    justify-content: space-around;
+    align-items: center;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.navBar>div:nth-child(2) a:hover {
+    color: #EA9F38;
+    transition: all 700ms;
 }

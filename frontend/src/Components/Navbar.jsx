@@ -1,20 +1,21 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import "./Navbar.css"
-import logo from '../Images/logo.png'
+import logo from '../Images/homeLogo.jpeg'
 
 export default function Navbar() {
     return (
-        <div className='navbar_main'>
-            <Link to='/' className='logo_and_title'>
-                <img src={logo} alt="" />
-                <h2>Calorie Calculator</h2>
-            </Link>
-            <div className='register_login'>
-                <Link to='/register'>Register</Link>
-                <Link to='/login'>Login</Link>
+        <div className='navBar' >
+            <div>
+                <Link to='/'>
+                    <img src={logo} alt="" />
+                </Link>
             </div>
-
+            <div>
+                <Link to="/fooddiet">Diet</Link>
+                <Link to="/login">Login</Link>
+                <Link to="/register">Register</Link>
+            </div>
         </div>
     )
 }

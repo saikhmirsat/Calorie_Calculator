@@ -1,5 +1,4 @@
 import React from 'react'
-import { json } from 'react-router-dom'
 import "./Home.css"
 
 import {
@@ -16,6 +15,9 @@ import {
 } from '@chakra-ui/react'
 import { useState } from 'react'
 import { useEffect } from 'react'
+
+import eatHealthy from '../Images/eathealthy.jpg'
+import gym from '../Images/gym.webp'
 
 export default function Home() {
     const [data, setData] = useState([])
@@ -132,6 +134,31 @@ export default function Home() {
 
     return (
         <div>
+
+            <div className='introContainer' >
+                <div >
+                    <div>
+                        <h2>Feed Your Body, <br /> Fuel Your Journey.</h2>
+                        <p>Eating healthy improves your physical and mental well-being, giving you more energy and reducing the risk of diseases.</p>
+                        <button>choose food</button>
+                    </div>
+                    <div>
+                        <img src={eatHealthy} alt="" />
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <img src={gym} alt="" />
+                    </div>
+                    <div>
+                        <h2>Be Active,<br /> Be Alive</h2>
+                        <p>Exercise boosts your mood, strengthens your muscles and bones, improves heart health, and helps maintain a healthy weight.</p>
+                        <button>Choose calorie to burn</button>
+                    </div>
+                </div>
+            </div>
+
+
             <h1>Calorie need- {calorie}</h1>
 
             <Button onClick={onOpen}>Add Routines</Button>

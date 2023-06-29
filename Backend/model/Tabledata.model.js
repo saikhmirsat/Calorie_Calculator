@@ -9,6 +9,9 @@ const tableSchema = mongoose.Schema({
     Total_calories_burned: Number,
     Target_calories_burned: Number,
     Target_achieved_calories_burned: Number,
+    user: String
+}, {
+    versionKey: false
 })
 
 const TableModel = mongoose.model('tableDatas', tableSchema)

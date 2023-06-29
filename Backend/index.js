@@ -1,6 +1,7 @@
 const express = require('express')
 const { connection } = require("./config/db")
 const { userRoute } = require("./routes/User.routes")
+const { authenticate } = require("./middleware/Authenticate.middleware")
 const { TableRoute } = require("./routes/Tabledata.routes")
 
 const app = express()
@@ -11,6 +12,7 @@ app.get("/", (req, res) => {
 })
 
 app.use("/users", userRoute)
+app.use(authenticate)
 app.use("/datas", TableRoute)
 
 app.listen(8080, async () => {

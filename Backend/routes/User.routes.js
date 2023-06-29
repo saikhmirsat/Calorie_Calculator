@@ -43,7 +43,7 @@ userRoute.post('/login', async (req, res) => {
         if (user.length > 0) {
             bcrypt.compare(password, user[0].password, (err, result) => {
                 if (result) {
-                    const token = jwt.sign({ userID: user[0]._id }, "manyavar")
+                    const token = jwt.sign({ userID: user[0]._id }, "caloriecalculator")
                     res.send({ "msg": "Login sucessful", "success": true, token, user })
                 } else {
                     res.send({ "msg": "Wrong crediential", "success": false })

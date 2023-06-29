@@ -132,7 +132,6 @@ export default function Home() {
 
     return (
         <div>
-            <h1>Home</h1>
             <h1>Calorie need- {calorie}</h1>
 
             <Button onClick={onOpen}>Add Routines</Button>
@@ -185,7 +184,6 @@ export default function Home() {
                         <p>{ele.Target_achieved_calories_burned}</p>
                         <Button>edit</Button>
                         <Button>edit</Button>
-
                     </div>
                 )
 

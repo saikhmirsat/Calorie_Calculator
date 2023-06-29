@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import './Register.css'
 
 export default function Register() {
 
@@ -46,7 +47,7 @@ export default function Register() {
 
     }
     return (
-        <div>
+        <div className='Register_con'>
             <input type="text" placeholder='First Name' onChange={(e) => setFname(e.target.value)} />
             <input type="text" placeholder='Last Name' onChange={(e) => setLname(e.target.value)} />
             <input type="text" placeholder='Email' onChange={(e) => setEmail(e.target.value)} />

@@ -1,0 +1,38 @@
+.navbar_main {
+    border: 1px solid black;
+    background-color: #0177fd;
+
+    height: 60px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-content: center;
+    align-items: center;
+}
+
+.navbar_main a {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    border: 1px solid red;
+}
+
+.logo_and_title {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo_and_title>a {
+    font-family: fantasy;
+}
+
+.navbar_main img {
+    /* border: 1px solid green; */
+    width: 100px;
+}
+
+.register_login {
+    display: flex;
+    gap: 20px;
+}

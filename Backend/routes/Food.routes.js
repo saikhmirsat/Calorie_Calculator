@@ -13,6 +13,36 @@ FoodRoute.get('/', async (req, res) => {
     }
 })
 
+FoodRoute.get('/breakfast', async (req, res) => {
+    try {
+        const data = await FoodModel.find({ "time": "breakfast" })
+        res.send(data)
+    } catch (err) {
+        res.send({ "msg": 'Data no found', "success": false })
+        console.log(err)
+    }
+})
+FoodRoute.get('/lunch', async (req, res) => {
+    try {
+        const data = await FoodModel.find({ "time": "lunch" })
+        res.send(data)
+    } catch (err) {
+        res.send({ "msg": 'Data no found', "success": false })
+        console.log(err)
+    }
+})
+
+FoodRoute.get('/dinner', async (req, res) => {
+    try {
+        const data = await FoodModel.find({ "time": "dinner" })
+        res.send(data)
+    } catch (err) {
+        res.send({ "msg": 'Data no found', "success": false })
+        console.log(err)
+    }
+})
+
+
 FoodRoute.get('/:_id', async (req, res) => {
     const { _id } = req.params
     try {

@@ -8,3 +8,21 @@
     border: 1px olivedrab solid;
     height: 400px;
 }
+
+.food_and_colorie_con_child_1 {
+
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    
+}
+
+.food_and_colorie_con img {
+    width: 80%;
+    height: 200px;
+    border-radius: 50%;
+}
+
+.food_card {
+    border: 1px solid rebeccapurple;
+    height: 300px;
+}

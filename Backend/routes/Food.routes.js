@@ -11,7 +11,6 @@ FoodRoute.get('/', async (req, res) => {
         res.send({ "msg": 'Data no found', "success": false })
         console.log(err)
     }
-    res.send('Welcome')
 })
 
 FoodRoute.get('/:_id', async (req, res) => {

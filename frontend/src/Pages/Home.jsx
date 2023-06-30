@@ -30,69 +30,19 @@ export default function Home() {
     const [Target_achieved_calories_burned, setTarget_achieved_calories_burned] = useState("")
     const [createDate, setCreateDate] = useState("")
 
-
-
-
     const { isOpen, onOpen, onClose } = useDisclosure()
 
-
     const token = localStorage.getItem('logintoken')
+
 
     let young = ""
     let mature = ""
     let old = ""
     const user = JSON.parse(localStorage.getItem('userdetails'))
+    const id = user._id
+    console.log(id)
 
     const calorie = localStorage.getItem('calories')
-
-    const getUserData = async () => {
-
-        if (user.gender === 'male') {
-            if (user.age > 19 && user.age <= 30) {
-                young = 3000
-                localStorage.setItem('calories', young)
-            } else if (user.age > 31 && user.age <= 60) {
-                mature = 2800
-                localStorage.setItem('calories', mature)
-            } else if (user.age > 60) {
-                old = 2600
-                localStorage.setItem('calories', old)
-            }
-        } else {
-            if (user.age > 19 && user.age <= 30) {
-                young = 2400
-                localStorage.setItem('calories', young)
-            } else if (user.age > 31 && user.age <= 60) {
-                mature = 2200
-                localStorage.setItem('calories', mature)
-            } else if (user.age > 60) {
-                old = 2000
-                localStorage.setItem('calories', old)
-            }
-        }
-
-        try {
-            await fetch(`http://localhost:8080/datas/${user._id}`, {
-                headers: {
-                    'Authorization': token
-                }
-            })
-                .then((res) => res.json())
-                .then((res) => {
-                    setData(res)
-                    console.log(res)
-                })
-        } catch (err) {
-            console.log(err)
-        }
-
-    }
-
-
-    useEffect(() => {
-        getUserData()
-    }, [])
-
 
     const AddData = async () => {
         let obj = {
@@ -107,7 +57,7 @@ export default function Home() {
         }
 
         try {
-            await fetch(`http://localhost:8080/datas/add`, {
+            await fetch(`https://vast-red-vulture-sock.cyclic.app/datas/add`, {
                 method: "POST",
                 body: JSON.stringify(obj),
                 headers: {
@@ -119,7 +69,6 @@ export default function Home() {
                 .then((res) => {
                     console.log(res)
                     if (res.msg == 'Data has been added') {
-                        getUserData()
                         onClose()
                     }
                 })
@@ -128,6 +77,28 @@ export default function Home() {
         }
 
     }
+
+    const getData = async () => {
+        try {
+            await fetch(`http://localhost:8080/datas/${id}`, {
+                headers: {
+                    'Authorization': token
+                }
+            })
+                .then((res) => res.json())
+                .then((res) => {
+                    setData(res)
+                    console.log(res)
+                })
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    useEffect(() => {
+        getData()
+    }, [])
+
 
 
 

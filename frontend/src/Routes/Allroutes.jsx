@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom'
 import Foods from '../Pages/Foods'
 import Home from '../Pages/Home'
 import Login from '../Pages/Login'
+import Profile from '../Pages/Profile'
 import Register from '../Pages/Register'
 
 export default function Allroutes() {
@@ -12,6 +13,7 @@ export default function Allroutes() {
             <Route path='/register' element={<Register />}></Route>
             <Route path='/login' element={<Login />}></Route>
             <Route path='/fooddiet' element={<Foods />}></Route>
+            <Route path='/profile' element={<Profile />}></Route>
         </Routes>
     )
 }

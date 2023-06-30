@@ -3,6 +3,8 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './Login.css'
 
+import Cookies from 'js-cookie';
+
 export default function Login() {
     const [email, setEmail] = useState("")
     const [password, setpassword] = useState("")
@@ -25,6 +27,12 @@ export default function Login() {
                 if (res.success === true) {
                     localStorage.setItem('userdetails', JSON.stringify(res.user[0]))
                     localStorage.setItem('logintoken', res.token)
+                    let token = res.token
+                    const expirationTime = new Date(new Date().getTime() + 3600 * 6000); // expires in 1 hour
+                    Cookies.set('token', token, { expires: expirationTime });
+                    Cookies.set('isAuth', true, { expires: expirationTime });
+                    Cookies.set('role', res.user[0].role, { expires: expirationTime });
+
                     Navigate('/')
                     window.location.reload()
                 } else {

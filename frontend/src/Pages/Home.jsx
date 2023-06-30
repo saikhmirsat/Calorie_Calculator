@@ -105,6 +105,9 @@ export default function Home() {
 
     return (
         <div>
+            <div className='home_calory_detail_container'>
+
+            </div>
 
             <div className='introContainer' >
                 <div >

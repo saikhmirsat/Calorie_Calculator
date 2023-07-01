@@ -1,78 +1,142 @@
 import React, { useState } from 'react'
 import './Food.css'
 import { Button } from '@chakra-ui/react'
+import { useEffect } from 'react'
+import Cookies from 'js-cookie';
 
 export default function Food() {
     const [time, setTime] = useState('')
-    const [plan, setPlan] = useState('')
-    const [calorie, setCalories] = useState(0)
+
+    const planFromLs = localStorage.getItem('plan') || ''
+
+    const [plan, setPlan] = useState(planFromLs)
+    const [planShow, setPlanShow] = useState(true)
+    // const [calorie, setCalories] = useState(0)
     const [food, setFood] = useState([])
     const [loading, setLoading] = useState(false)
 
+    const totalFronLs = +localStorage.getItem('total_calories') || 0
+
+    const [totalCalories, setTotalCalories] = useState(totalFronLs)
+
+    const todayData = JSON.parse(localStorage.getItem('todayData')) || []
+
     const [arrCal, setArrcal] = useState([])
 
-    const [selectFood, setSelectFood] = useState([])
+    const [selectFood, setSelectFood] = useState(todayData)
 
 
-    const showOption = async (time) => {
-        if (plan == '') {
-            alert('Please select Plan for')
-        } else {
-            setLoading(true)
-            await fetch(`https://vast-red-vulture-sock.cyclic.app/foods/${time}`, {
-                headers: {
-                    'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2NDlkMjdiYzNkNTA3OTVjODE4NzM5YjYiLCJpYXQiOjE2ODgxMjU4MDV9.B5MLXGVlkxNMIRmf98V0gjSqO4hB0nhZC93VjAJCU1E'
-                }
-            }).then(res => res.json())
-                .then(res => {
-                    setLoading(false)
-                    console.log(res)
-                    setFood(res)
+    const todayLocalStorageData = JSON.parse(localStorage.getItem('todayData')) || []
+    console.log(todayLocalStorageData)
 
-                })
-                .catch(err => {
-                    setLoading(false)
-                    console.log(err)
-                })
-        }
+    let calorie = localStorage.getItem('total_calories') || 0
+
+    const tokenFromCookies = Cookies.get('token')
+
+    const getData = async () => {
+
+        setLoading(true)
+        await fetch(`https://vast-red-vulture-sock.cyclic.app/foods`, {
+            headers: {
+                'Authorization': tokenFromCookies
+            }
+        }).then(res => res.json())
+            .then(res => {
+                setLoading(false)
+                console.log(res)
+                setFood(res)
+
+            })
+            .catch(err => {
+                setLoading(false)
+                console.log(err)
+            })
+
     }
+    useEffect(() => {
+        getData()
+    }, [])
 
 
     const AddFood = (ele) => {
-        selectFood.push(ele)
-        console.log(selectFood)
-        let total = 0
-        for (var i = 0; i < selectFood.length; i++) {
-            if (isNaN(selectFood[i].Calories)) {
-                continue;
-            }
-            total += Number(selectFood[i].Calories);
-        }
+        if (plan == "") {
+            alert('Plaese selecet a plan first')
+        } else {
+            todayLocalStorageData.push(ele)
+            localStorage.setItem('todayData', JSON.stringify(todayLocalStorageData))
+            localStorage.setItem('plan', plan)
 
-        setCalories(total)
+            setSelectFood([...selectFood, ele])
+
+            let total = 0
+            for (var i = 0; i < todayLocalStorageData.length; i++) {
+                if (isNaN(todayLocalStorageData[i].Calories)) {
+                    continue;
+                }
+                total += Number(todayLocalStorageData[i].Calories);
+            }
+
+            setTotalCalories(total)
+            localStorage.setItem('total_calories', total)
+
+        }
     }
 
-    const RemoveFood = (ele) => {
+    const RemoveFood = (ele, ind) => {
         setSelectFood(selectFood => selectFood.filter(item => item._id !== ele._id))
+
+        todayLocalStorageData.splice(ind, 1)
+        localStorage.setItem('todayData', JSON.stringify(todayLocalStorageData))
+
+        let total = 0
+        for (var i = 0; i < todayLocalStorageData.length; i++) {
+            if (isNaN(todayLocalStorageData[i].Calories)) {
+                continue;
+            }
+            total += Number(todayLocalStorageData[i].Calories);
+        }
+
+        setTotalCalories(total)
+        localStorage.setItem('total_calories', total)
+
+
     }
 
 
     const SaveFunction = async () => {
-        // let obj = {
-        //     "date": new Date().toISOString().split('T')[0],
-        //     "dailydata": selectFood
-        // }
-        // await fetch('https://mirsat-vercel-database.vercel.app/datas', {
-        //     method: "POST",
-        //     body: JSON.stringify(obj),
-        //     headers: {
-        //         "Content-type": "application/json",
-        //     }
-        // }).then((res) => res.json())
-        //     .then((res) => console.log(res))
-        //     .catch((err) => console.log(err))
-        // console.log(obj)
+        let obj = {
+            "date": new Date().toISOString().split('T')[0],
+            "plan": plan,
+            "totalCalories": calorie,
+            "dailydata": todayLocalStorageData,
+        }
+        await fetch('http://localhost:8080/history/add', {
+            method: "POST",
+            body: JSON.stringify(obj),
+            headers: {
+                "Content-type": "application/json",
+                "Authorization": tokenFromCookies
+            }
+        }).then((res) => res.json())
+            .then((res) => {
+                if (res.msg === "Data has been added") {
+                    setSelectFood([])
+                    window.localStorage.removeItem("todayData")
+                    localStorage.setItem('todayCalories', calorie)
+                    setTotalCalories(0)
+                    window.localStorage.removeItem("total_calories")
+                    window.localStorage.removeItem('plan')
+
+                    setPlan("")
+                    alert('Your data save in history')
+                }
+                console.log(res)
+            })
+            .catch((err) => console.log(err))
+        console.log(obj)
     }
+
+    console.log(localStorage.getItem('todayCalories'))
 
     return (
         <div>
@@ -82,18 +146,7 @@ export default function Food() {
                     <option value="weight-gain">Weight Gain</option>
                     <option value="weight-loos">Weaight Loos</option>
                 </select>
-                <button onClick={() => {
-                    setTime('breakfast')
-                    showOption('breakfast')
-                }} >Breakfist</button>
-                <button onClick={() => {
-                    setTime('lunch')
-                    showOption('lunch')
-                }} >Lunch</button>
-                <button onClick={() => {
-                    setTime('dinner')
-                    showOption('dinner')
-                }} >Dinner</button>
+
             </div>
             <div className='FoodContainer' >
                 <div>
@@ -108,7 +161,7 @@ export default function Food() {
                                         <p>Calories : {ele.Calories}</p>
                                         <button onClick={() => {
                                             AddFood(ele)
-                                            // CountCalorie(ele.Calories)
+
                                         }} >Add</button>
                                     </div>
                                 )
@@ -119,17 +172,16 @@ export default function Food() {
                 </div>
                 <div  >
                     <div className='bitInfo' >
-                        <h1>{plan === 'weight-gain' ? 'Weight Gain' : plan === 'weight-loos' ? 'Weight Loos' : 'Please select plan for'}</h1>
-                        <h1>{time}</h1>
+                        <h1>{plan}</h1>
                     </div>
                     <div className='showWantToremove' >
                         {
-                            selectFood.map((ele) =>
+                            selectFood && selectFood.map((ele, index) =>
                                 <div key={ele._id} >
                                     <img src={ele.image} alt="" />
                                     <p>Food : {ele.food}</p>
                                     <p>Calories : {ele.Calories}</p>
-                                    <button onClick={() => RemoveFood(ele)} >Remove</button>
+                                    <button onClick={() => RemoveFood(ele, index)} >Remove</button>
                                 </div>
                             )
                         }
@@ -138,7 +190,7 @@ export default function Food() {
                     <div>
 
                         <h1>Total Calories</h1>
-                        <h2  >{calorie}</h2>
+                        <h2  >{totalCalories}</h2>
 
                     </div>
                 </div>

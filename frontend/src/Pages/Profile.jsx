@@ -12,6 +12,9 @@ export default function Profile() {
         Cookies.remove("isAuth");
         Cookies.remove("token");
         Cookies.remove("role");
+        localStorage.removeItem('userdetails')
+        localStorage.removeItem('calories')
+        localStorage.removeItem('todayCalories')
         navigate('/login')
         window.location.reload()
     }

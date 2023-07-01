@@ -18,6 +18,11 @@ import { useEffect } from 'react'
 
 import eatHealthy from '../Images/eathealthy.jpg'
 import gym from '../Images/gym.webp'
+import { useContext } from 'react'
+import { ImportantContext } from '../Context/ImportantContext'
+import ModalCompo from './Modal'
+
+
 
 export default function Home() {
     const [data, setData] = useState([])
@@ -29,16 +34,17 @@ export default function Home() {
     const [Target_calories_burned, setTarget_calories_burned] = useState("")
     const [Target_achieved_calories_burned, setTarget_achieved_calories_burned] = useState("")
     const [createDate, setCreateDate] = useState("")
+    const [modalOpen, setModalOpen] = useState(false);
+
+    const { isAuth } = useContext(ImportantContext)
 
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     const token = localStorage.getItem('logintoken')
 
+    const TodayCal = localStorage.getItem('todayCalories')
 
-    let young = ""
-    let mature = ""
-    let old = ""
-    const user = JSON.parse(localStorage.getItem('userdetails'))
+    const user = JSON.parse(localStorage.getItem('userdetails')) || 0
     const id = user._id
     console.log(id)
 
@@ -99,14 +105,36 @@ export default function Home() {
         getData()
     }, [])
 
+    let needCal = calorie - TodayCal
+    console.log(needCal)
 
 
+    const openModal = () => {
+        setModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setModalOpen(false);
+    };
 
 
     return (
         <div>
             <div className='home_calory_detail_container'>
+                <div className='home_calorie_child1'>
+                    <h1>Hello {user.firstname}</h1>
+                    <p>Calories are important because they provide the energy needed for various bodily functions and physical activities. By understanding and calculating your calorie intake, you can make informed decisions about your diet and ensure you're meeting your energy needs.</p>
+                    <div className='circle_in_home'></div>
+                </div>
+                <div className='home_calorie_child2'>
+                    <img src="https://cdn.firstcry.com/education/2022/11/29121141/Yellow-Fruit-Names-For-Kids.jpg" alt="" />
+                    <div className='calory_calculator_div'>
+                        <h1><b style={{ color: 'black' }}>{calorie} </b> &nbsp; number of calories you need daily.</h1>
 
+                        <h1>Your today consumed calories number : {TodayCal}</h1>
+                        <h1>To fullfill your daily calories requirement you have to consume rest <b>{needCal}+</b> calories.  </h1>
+                    </div>
+                </div>
             </div>
 
             <div className='introContainer' >
@@ -133,7 +161,7 @@ export default function Home() {
             </div>
 
 
-            <h1>Calorie need- {calorie}</h1>
+
 
             <Button onClick={onOpen}>Add Routines</Button>
             <Modal isOpen={isOpen} onClose={onClose}>
@@ -160,6 +188,7 @@ export default function Home() {
                 </ModalContent>
             </Modal>
 
+
             <div className='Home_Table_head'>
                 <p>Date</p>
                 <p>Name</p>
@@ -172,7 +201,9 @@ export default function Home() {
                 <p>Edit</p>
                 <p>Edit</p>
             </div>
+
             {
+
                 data.map((ele) =>
                     <div className='Home_Table_head' key={ele._id}>
                         <p>{ele.createDate}</p>
@@ -183,12 +214,14 @@ export default function Home() {
                         <p>{ele.Total_calories_burned}</p>
                         <p>{ele.Target_calories_burned}</p>
                         <p>{ele.Target_achieved_calories_burned}</p>
-                        <Button>edit</Button>
+                        <Button onClick={openModal}>edit</Button>
                         <Button>edit</Button>
                     </div>
                 )
 
             }
+            
+            <ModalCompo isOpen={modalOpen} onClose={closeModal}/>
         </div>
     )
 }

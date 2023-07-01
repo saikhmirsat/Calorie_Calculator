@@ -3,11 +3,13 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './Login.css'
 
+
 import Cookies from 'js-cookie';
 
 export default function Login() {
     const [email, setEmail] = useState("")
     const [password, setpassword] = useState("")
+
 
     const Navigate = useNavigate()
 
@@ -32,6 +34,34 @@ export default function Login() {
                     Cookies.set('token', token, { expires: expirationTime });
                     Cookies.set('isAuth', true, { expires: expirationTime });
                     Cookies.set('role', res.user[0].role, { expires: expirationTime });
+
+                    let user = JSON.parse(localStorage.getItem('userdetails'))
+                    let young = ""
+                    let mature = ""
+                    let old = ""
+                    if (user.gender === 'male') {
+                        if (user.age > 19 && user.age <= 30) {
+                            young = 3000
+                            localStorage.setItem('calories', young)
+                        } else if (user.age > 31 && user.age <= 60) {
+                            mature = 2800
+                            localStorage.setItem('calories', mature)
+                        } else if (user.age > 60) {
+                            old = 2600
+                            localStorage.setItem('calories', old)
+                        }
+                    } else {
+                        if (user.age > 19 && user.age <= 30) {
+                            young = 2400
+                            localStorage.setItem('calories', young)
+                        } else if (user.age > 31 && user.age <= 60) {
+                            mature = 2200
+                            localStorage.setItem('calories', mature)
+                        } else if (user.age > 60) {
+                            old = 2000
+                            localStorage.setItem('calories', old)
+                        }
+                    }
 
                     Navigate('/')
                     window.location.reload()

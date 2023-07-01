@@ -45,6 +45,8 @@ export default function Register() {
             console.log(err)
         }
 
+        
+
     }
     return (
         <div className='Register_con'>

@@ -4,6 +4,7 @@ const { userRoute } = require("./routes/User.routes")
 const { authenticate } = require("./middleware/Authenticate.middleware")
 const { TableRoute } = require("./routes/Tabledata.routes")
 const { FoodRoute } = require("./routes/Food.routes")
+const { HistoryRoutes } = require('./routes/History.routes')
 const cors = require('cors')
 
 const app = express()
@@ -18,12 +19,13 @@ app.use("/users", userRoute)
 app.use(authenticate)
 app.use("/datas", TableRoute)
 app.use("/foods", FoodRoute)
+app.use("/history", HistoryRoutes)
 
 app.listen(8080, async () => {
     try {
         await connection
         console.log("DB connected")
-    }catch (err){
+    } catch (err) {
         console.log("DB not connected")
     }
     console.log("Server porting at 8080")

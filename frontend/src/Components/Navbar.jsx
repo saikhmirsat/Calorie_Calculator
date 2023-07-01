@@ -3,11 +3,13 @@ import { Link } from 'react-router-dom'
 import "./Navbar.css"
 import logo from '../Images/homeLogo.jpeg'
 import Cookies from 'js-cookie';
+import { useContext } from 'react';
+import { ImportantContext } from '../Context/ImportantContext';
 
 export default function Navbar() {
-    const tokenFromCookies = Cookies.get('token')
-    const roleFromCookies = Cookies.get('role')
-    const isAuthFromCookies = Cookies.get('isAuth')
+
+    const { isAuth } = useContext(ImportantContext)
+
 
     return (
         <div className='navBar' >
@@ -17,13 +19,18 @@ export default function Navbar() {
                 </Link>
             </div>
             <div>
-                <Link to="/fooddiet">Diet</Link>
                 {
-                    isAuthFromCookies ?
+                    isAuth ? <Link to="/fooddiet">Diet</Link> : ""
+                }
+                {
+                    isAuth ? <Link to="/history">History</Link> : ""
+                }
+                {
+                    isAuth ?
                         <Link to="/profile">Account</Link> : <Link to="/login">Login</Link>
                 }
 
-                {!isAuthFromCookies ? <Link to="/register">Register</Link> : ""}
+                {!isAuth ? <Link to="/register">Register</Link> : ""}
             </div>
         </div>
     )

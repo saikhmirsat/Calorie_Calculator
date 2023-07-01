@@ -1,0 +1,92 @@
+.History_container {
+    /* border: 1px solid red; */
+}
+
+.History_container>input {
+    /* border: 1px solid grey; */
+    margin-bottom: 5px;
+    background-color: #EA9F37;
+    border-radius: 5px;
+    padding: 2px 5px;
+}
+
+.His_box {
+    /* border: 1px solid green; */
+}
+
+.heading_his_box_card {
+    height: 40px;
+    background-color: #1F427F;
+    color: white;
+    font-weight: bold;
+    display: grid;
+    align-items: center;
+    grid-template-columns: repeat(5, 15% 15% 15% 40% 15%);
+}
+
+.his_box_card {
+    border: 1px solid rgb(205, 202, 202);
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    padding: 5px;
+    display: grid;
+    grid-template-columns: repeat(5, 15% 15% 15% 40% 15%);
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.his_box_card>h1 {
+    font-weight: bold;
+
+}
+
+.hisBox_inner_card {
+    /* display: flex; */
+    border: 1px solid rgb(216, 212, 212);
+    height: auto;
+    padding: 4px;
+    width: 100px;
+}
+
+.hisBox_inner_card>p {
+    font-size: 10px;
+}
+
+.his_inner_box img {
+    width: 40px;
+    height: 40px;
+    margin: auto;
+}
+
+.his_inner_box {
+    height: 65px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    /* border: 1px solid grey; */
+    overflow-y: scroll;
+
+}
+
+.HisRemoveBTN {
+    background-color: #1F427F;
+    color: white;
+    width: 50%;
+    margin: auto;
+    padding: 5px 5px;
+    border-radius: 10px;
+}
+
+.HisRemoveBTN:hover {
+    background-color: #EA9F37;
+    transition: 1s;
+}
+
+.history_emty_img_div {
+    width: 100%;
+    height: auto;
+    background-color: #f8f8fb;
+}
+
+.history_emty_img_div img {
+    margin: auto;
+}

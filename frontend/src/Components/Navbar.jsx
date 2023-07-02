@@ -19,8 +19,12 @@ export default function Navbar() {
                 </Link>
             </div>
             <div>
+
                 {
                     isAuth ? <Link to="/notes">Notes</Link> : ""
+                }
+                {
+                    isAuth ? <Link to='/activity'>Activity</Link> : ""
                 }
                 {
                     isAuth ? <Link to="/fooddiet">Food Calories</Link> : ""

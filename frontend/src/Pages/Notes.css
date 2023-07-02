@@ -1,0 +1,40 @@
+.Home_Table_head {
+    border: 1px solid black;
+    display: grid;
+    grid-template-columns: repeat(10, 9% 9% 12% 12% 12% 12% 12% 12% 5% 5%);
+    background-color: #1F427F;
+    color: white;
+}
+
+.Home_Table_head>div {
+    border-right: 1px solid black;
+    height: 100%;
+    padding: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Home_Table_details {
+    margin-bottom: 10px;
+    border: 1px solid black;
+    display: grid;
+    grid-template-columns: repeat(10, 9% 9% 12% 12% 12% 12% 12% 12% 5% 5%);
+
+}
+
+.Home_Table_details>div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid black;
+    height: 100%;
+}
+
+.Home_Table_details button {
+    background-color: #1F427F;
+    color: white;
+    height: 70%;
+    width: 80%;
+    font-size: 10px;
+}

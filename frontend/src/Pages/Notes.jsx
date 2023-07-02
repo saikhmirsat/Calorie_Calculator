@@ -18,7 +18,7 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import { useContext } from 'react'
 import { ImportantContext } from '../Context/ImportantContext'
-import ModalCompo from './Modal'
+
 
 export default function Notes() {
     const [data, setData] = useState([])
@@ -30,7 +30,7 @@ export default function Notes() {
     const [Target_calories_burned, setTarget_calories_burned] = useState("")
     const [Target_achieved_calories_burned, setTarget_achieved_calories_burned] = useState("")
     const [createDate, setCreateDate] = useState("")
-    const [modalOpen, setModalOpen] = useState(false);
+
 
     const { isAuth } = useContext(ImportantContext)
 
@@ -100,16 +100,11 @@ export default function Notes() {
 
 
 
-    const openModal = () => {
-        setModalOpen(true);
-    };
 
-    const closeModal = () => {
-        setModalOpen(false);
-    };
     return (
         <div>
-            <Button onClick={onOpen}>Add Routines</Button>
+            <Button onClick={onOpen} m="20px" bg='#1F427F' color='white' _hover={{ bg: "#EA9F37" }}>Add Notes</Button>
+
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
                 <ModalContent>
@@ -136,38 +131,37 @@ export default function Notes() {
 
 
             <div className='Home_Table_head'>
-                <p>Date</p>
-                <p>Name</p>
-                <p>Total calories intake on that date</p>
-                <p>Target calories intake value</p>
-                <p>Target achieved for calories intake</p>
-                <p>Total calories burned on that date</p>
-                <p>Target calories burned value</p>
-                <p>Target achieved for calories burned</p>
-                <p>Edit</p>
-                <p>Edit</p>
+                <div><p>Date</p></div>
+                <div><p>Name</p></div>
+                <div><p>Total calories intake on that date</p></div>
+                <div><p>Target calories intake value</p></div>
+                <div><p>Target achieved for calories intake</p></div>
+                <div><p>Total calories burned on that date</p></div>
+                <div><p>Target calories burned value</p></div>
+                <div><p>Target achieved for calories burned</p></div>
+                <div><p>Edit</p></div>
+                <div><p>Edit</p></div>
             </div>
 
             {
 
                 data.map((ele) =>
-                    <div className='Home_Table_head' key={ele._id}>
-                        <p>{ele.createDate}</p>
-                        <p>{ele.name}</p>
-                        <p>{ele.Total_calories_intake}</p>
-                        <p>{ele.Target_calories_intake_value}</p>
-                        <p>{ele.Target_achieved_calories_intake}</p>
-                        <p>{ele.Total_calories_burned}</p>
-                        <p>{ele.Target_calories_burned}</p>
-                        <p>{ele.Target_achieved_calories_burned}</p>
-                        <Button onClick={openModal}>edit</Button>
-                        <Button>edit</Button>
+                    <div className='Home_Table_details' key={ele._id}>
+                        <div><p>{ele.createDate}</p></div>
+                        <div><p>{ele.name}</p></div>
+                        <div><p>{ele.Total_calories_intake}</p></div>
+                        <div><p>{ele.Target_calories_intake_value}</p></div>
+                        <div><p>{ele.Target_achieved_calories_intake}</p></div>
+                        <div><p>{ele.Total_calories_burned}</p></div>
+                        <div><p>{ele.Target_calories_burned}</p></div>
+                        <div><p>{ele.Target_achieved_calories_burned}</p></div>
+                        <div><button>edit</button></div>
+                        <div><button>edit</button></div>
                     </div>
                 )
 
             }
 
-            <ModalCompo isOpen={modalOpen} onClose={closeModal} />
         </div>
     )
 }

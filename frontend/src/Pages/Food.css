@@ -1,16 +1,46 @@
 .FoodContainer {
-    border: 1px solid hotpink;
+    border: 1px solid rgb(220, 219, 219);
     display: flex;
 }
 
 .FoodContainer>div {
-    border: 1px solid green;
+    border: 1px solid rgb(220, 219, 219);
     width: 50%;
+    overflow-y: auto;
+    height: 600px;
+    padding: 20px;
+}
+
+.loading_gif_foodshown_con {
+    border: 1px solid red;
+    width: 100%;
 }
 
 .showFoodOptionsContainer {
     display: grid;
+    gap: 2%;
     grid-template-columns: repeat(4, 1fr);
+    /* padding: 20px; */
+}
+
+.showFoodOptionsContainer div {
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    padding: 15px;
+    border-radius: 3px;
+}
+
+.showFoodOptionsContainer div button {
+    width: 100%;
+    padding: 5px;
+    background-color: #EA9F37;
+    /* color: white; */
+    cursor: pointer;
+    border: 1px solid rgb(253, 224, 0);
+}
+
+.showFoodOptionsContainer div button:hover {
+    background-color: white;
+    transition: all 700ms;
 }
 
 .showFoodOptionsContainer img {
@@ -18,10 +48,7 @@
     height: 100px;
 }
 
-.showWantToremove {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-}
+
 
 .showWantToremove img {
     width: 100%;
@@ -34,6 +61,140 @@
     gap: 3%;
 }
 
-.bitInfo>h1:nth-child(2) {
-    color: rgb(255, 234, 0);
+.bitInfo>h1 {
+    color: #EA9F37;
+    border: 1px solid #EA9F37;
+    padding: 5px 20px;
+    font-weight: bold;
+}
+
+.filterContainer {
+    padding: 10px;
+}
+
+.filterContainer select {
+    border: 1px solid rgb(194, 192, 192);
+    width: 19%;
+    background-color: #1f427f63;
+    font-size: large;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    outline: none;
+}
+
+.showWantToremove {
+    display: grid;
+    gap: 2%;
+    padding: 20px;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.showWantToremove div {
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    padding: 15px;
+    border-radius: 3px;
+}
+
+.showWantToremove div button {
+    width: 100%;
+    padding: 5px;
+    border-radius: 3px;
+    border: 1px solid red;
+    background-color: red;
+    color: white;
+    cursor: pointer;
+}
+
+.showWantToremove div button:hover {
+    background-color: white;
+    transition: all 700ms;
+    color: red;
+}
+
+.showWantToremove~button {
+    background-color: #EA9F37;
+    width: 90%;
+    padding: 10px;
+    font-size: large;
+    border-radius: 3px;
+    border: 1px solid #EA9F37;
+}
+
+.showWantToremove~button:hover {
+    cursor: pointer;
+    background-color: white;
+    transition: all 700ms;
+}
+
+.total_calories_amount {
+    font-size: 20px;
+    border: 1px solid #EA9F37;
+    width: 50%;
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+.saveBtn_invisible {
+    display: none;
+}
+
+@media (max-width:915px) {
+    .showFoodOptionsContainer {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .showWantToremove {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width:800px) {
+    .showFoodOptionsContainer {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .showWantToremove {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width:600px) {
+    .FoodContainer {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .FoodContainer>div {
+        width: 100%;
+    }
+
+    .showFoodOptionsContainer {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .showWantToremove {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width:500px) {
+    .showFoodOptionsContainer {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .showWantToremove {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width:420px) {
+    .showFoodOptionsContainer {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .showWantToremove {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
 }

@@ -20,7 +20,10 @@ export default function Navbar() {
             </div>
             <div>
                 {
-                    isAuth ? <Link to="/fooddiet">Diet</Link> : ""
+                    isAuth ? <Link to="/notes">Notes</Link> : ""
+                }
+                {
+                    isAuth ? <Link to="/fooddiet">Food Calories</Link> : ""
                 }
                 {
                     isAuth ? <Link to="/history">History</Link> : ""

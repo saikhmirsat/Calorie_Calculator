@@ -5,6 +5,7 @@ import Foods from '../Pages/Foods'
 import History from '../Pages/History'
 import Home from '../Pages/Home'
 import Login from '../Pages/Login'
+import Notes from '../Pages/Notes'
 import Profile from '../Pages/Profile'
 import Register from '../Pages/Register'
 
@@ -18,6 +19,7 @@ export default function Allroutes() {
             <Route path='/profile' element={<Profile />}></Route>
             <Route path='/history' element={<History />}></Route>
             <Route path='/admin' element={<Dashboard />}></Route>
+            <Route path='/notes' element={<Notes />}></Route>
         </Routes>
     )
 }

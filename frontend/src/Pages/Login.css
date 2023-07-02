@@ -1,0 +1,34 @@
+.login_main_con {
+    padding-top: 100px;
+}
+
+.loginContainer {
+    /* border: 1px solid green; */
+    width: 40%;
+    margin: auto;
+    padding: 30px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.loginContainer input {
+    border: 1px solid rgb(200, 197, 197);
+    width: 96%;
+    padding: 10px;
+    margin-bottom: 10px;
+    outline: none;
+}
+
+.loginContainer button {
+    width: 50%;
+    padding: 10px;
+    font-size: medium;
+    background-color: #FDE000;
+    border: 1px solid #FDE000;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.loginContainer button:hover {
+    background-color: white;
+    transition: all 700ms;
+}

@@ -5,7 +5,7 @@ import { useEffect } from 'react'
 import Cookies from 'js-cookie';
 
 export default function Food() {
-    const [time, setTime] = useState('')
+    const [saveShown, setSaveshow] = useState(false)
 
     const planFromLs = localStorage.getItem('plan') || ''
 
@@ -24,7 +24,6 @@ export default function Food() {
     const [arrCal, setArrcal] = useState([])
 
     const [selectFood, setSelectFood] = useState(todayData)
-
 
     const todayLocalStorageData = JSON.parse(localStorage.getItem('todayData')) || []
     console.log(todayLocalStorageData)
@@ -51,17 +50,16 @@ export default function Food() {
                 setLoading(false)
                 console.log(err)
             })
-
     }
     useEffect(() => {
         getData()
     }, [])
 
-
     const AddFood = (ele) => {
         if (plan == "") {
             alert('Plaese selecet a plan first')
         } else {
+            setSaveshow(true)
             todayLocalStorageData.push(ele)
             localStorage.setItem('todayData', JSON.stringify(todayLocalStorageData))
             localStorage.setItem('plan', plan)
@@ -133,64 +131,61 @@ export default function Food() {
                 console.log(res)
             })
             .catch((err) => console.log(err))
-        console.log(obj)
     }
 
-    console.log(localStorage.getItem('todayCalories'))
 
     return (
         <div>
             <div>
-                <select onChange={(e) => setPlan(e.target.value)}>
-                    <option value="">Plan For</option>
-                    <option value="weight-gain">Weight Gain</option>
-                    <option value="weight-loos">Weaight Loos</option>
-                </select>
+                <div className='filterContainer' >
+                    <select onChange={(e) => setPlan(e.target.value)}>
+                        <option value="">Plan For</option>
+                        <option value="weight-gain">Weight Gain</option>
+                        <option value="weight-loos">Weaight Loos</option>
+                    </select>
 
-            </div>
-            <div className='FoodContainer' >
-                <div>
-                    {loading ? <img width='300px' src="https://media.tenor.com/IuABkwIwrUUAAAAC/loading-yellow.gif" alt="" /> :
+                </div>
+                <div className='FoodContainer' >
+                    <div>
+                        {loading ? <img className='loading_gif_foodshown_con' width='300px' src="https://kostt.com/assets/img/preloader.gif" alt="" /> :
 
-                        <div className='showFoodOptionsContainer' >
+                            <div className='showFoodOptionsContainer' >
+                                {
+                                    food && food.map((ele) =>
+                                        <div key={ele._id} >
+                                            <img src={ele.image} alt="" />
+                                            <p>Food : {ele.food}</p>
+                                            <p>Calories : <b> {ele.Calories}</b></p>
+                                            <button onClick={() => {
+                                                AddFood(ele)
+
+                                            }} >Add</button>
+                                        </div>
+                                    )
+                                }
+                            </div>
+                        }
+
+                    </div>
+                    <div  >
+                        <div className='bitInfo' >
+                            <h1>{plan === 'weight-gain' ? 'Weight Gain' : plan === 'weight-loos' ? 'Weight Loos' : 'Please select a plan'}</h1>
+                        </div>
+                        <div className='showWantToremove' >
                             {
-                                food && food.map((ele) =>
+                                selectFood && selectFood.map((ele, index) =>
                                     <div key={ele._id} >
                                         <img src={ele.image} alt="" />
                                         <p>Food : {ele.food}</p>
-                                        <p>Calories : {ele.Calories}</p>
-                                        <button onClick={() => {
-                                            AddFood(ele)
-
-                                        }} >Add</button>
+                                        <p>Calories : <b> {ele.Calories}</b></p>
+                                        <button onClick={() => RemoveFood(ele, index)} >Remove</button>
                                     </div>
                                 )
                             }
                         </div>
-                    }
 
-                </div>
-                <div  >
-                    <div className='bitInfo' >
-                        <h1>{plan}</h1>
-                    </div>
-                    <div className='showWantToremove' >
-                        {
-                            selectFood && selectFood.map((ele, index) =>
-                                <div key={ele._id} >
-                                    <img src={ele.image} alt="" />
-                                    <p>Food : {ele.food}</p>
-                                    <p>Calories : {ele.Calories}</p>
-                                    <button onClick={() => RemoveFood(ele, index)} >Remove</button>
-                                </div>
-                            )
-                        }
-                    </div>
-                    <Button onClick={SaveFunction}>Save</Button>
-                    <div>
-
-                        <h1>Total Calories</h1>
-                        <h2  >{totalCalories}</h2>
+                        {totalCalories == 0 ? "" : <h1 className="total_calories_amount" >Total Calories : <b>{totalCalories}</b></h1>}
+                        {totalCalories == 0 ? <h1 style={{ fontSize: "20px", fontWeight: "bold" }}>Add food to calculate calories</h1> : <button onClick={SaveFunction}>Save</button>}
 
                     </div>
                 </div>

@@ -53,7 +53,7 @@ TableRoute.patch('/edit/:_id', async (req, res) => {
         await TableModel.findByIdAndUpdate({ _id }, payload)
         res.send({ 'msg': 'data has been update' })
     } catch (err) {
-        res.send("Data not updated")
+        res.send({ "msg": "Data not updated" })
         console.log(err)
     }
 })
@@ -64,7 +64,7 @@ TableRoute.delete('/delete/:_id', async (req, res) => {
         res.send({ "msg": 'Data has deleted' })
     } catch (err) {
         console.log(err)
-        res.send('Data has not delete')
+        res.send({ "msg": 'Data has not delete' })
     }
 })
 

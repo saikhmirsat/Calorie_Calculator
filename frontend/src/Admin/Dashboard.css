@@ -36,7 +36,7 @@
 
 .admin_section_div {
     display: grid;
-    grid-template-rows: 3;
+    grid-template-rows: 4;
     align-items: center;
 
 
@@ -59,6 +59,38 @@
 .admin_main_child2 {
     padding: 30px;
     overflow-x: scroll;
+    /* background-color: rgb(220, 217, 217); */
+    background-color: #1F427F;
+}
+
+.adminPannel_default_screen {
+    /* border: 1px solid red; */
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px 20px;
+}
+
+.adminPannel_default_screen>div {
+    background-color: white;
+    border: 2px solid goldenrod;
+    height: 200px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.adminPannel_default_screen>div>div {
+    border: 3px solid goldenrod;
+    border-radius: 50%;
+    padding: 20px;
+}
+
+.adminPannel_default_screen h1 {
+    font-size: large;
+    font-weight: 500;
+    color: #1F427F;
 }
 
 .userpage {
@@ -115,4 +147,43 @@
 .card_btn_div>button:hover {
     background-color: #EA9F37;
     transition: 1s;
+}
+
+.showFoodOptionsContainer {
+    display: grid;
+    gap: 2%;
+    grid-template-columns: repeat(4, 1fr);
+    /* padding: 20px; */
+}
+
+.showFoodOptionsContainer>div {
+    border: 1px solid white;
+    background-color: white;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    padding: 15px;
+    border-radius: 3px;
+}
+
+.showFoodOptionsContainer div button {
+    width: 100%;
+    padding: 5px;
+    background-color: #EA9F37;
+    /* color: white; */
+    cursor: pointer;
+    border: 1px solid rgb(253, 224, 0);
+}
+
+.showFoodOptionsContainer div button:hover:nth-child(1) {
+    background-color: white;
+    transition: all 700ms;
+}
+
+.showFoodOptionsContainer div button:hover:nth-child(2) {
+    background-color: red;
+    transition: all 700ms;
+}
+
+.showFoodOptionsContainer img {
+    width: 100%;
+    height: 100px;
 }

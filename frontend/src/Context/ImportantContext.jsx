@@ -22,8 +22,7 @@ export default function ImportantContexProvider({ children }) {
 
 
 
-    console.log({ "cal": calorie })
-    console.log({ "today": todayCalories })
+
 
     return (
         <ImportantContext.Provider value={{ token, setToken, role, setRole, isAuth, setIsAuth, calorie, setCalories, user, setUser, todayCalories, setTodayCalories }} >{children}</ImportantContext.Provider>

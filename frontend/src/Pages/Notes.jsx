@@ -122,8 +122,12 @@ export default function Notes() {
             })
                 .then((res) => res.json())
                 .then((res) => {
+                    if (res.msg == "Data has deleted") {
+                        getData()
+                        console.log(res)
+                        alert("delete successful")
+                    }
 
-                    console.log(res)
                 })
         } catch (err) {
             console.log(err)
@@ -141,12 +145,12 @@ export default function Notes() {
                     <ModalCloseButton />
                     <ModalBody>
                         <Input type="date" onChange={(e) => setCreateDate(e.target.value)} />
-                        <Input placeholder='Total calories intake on that date' onChange={(e) => setTotal_calories_intake(e.target.value)}></Input>
-                        <Input placeholder='Target calories intake value' onChange={(e) => setTarget_calories_intake_value(e.target.value)}></Input>
-                        <Input placeholder='Target achieved for calories intake' onChange={(e) => setTarget_achieved_calories_intake(e.target.value)}></Input>
-                        <Input placeholder='Total calories burned on that date' onChange={(e) => setTotal_calories_burned(e.target.value)}></Input>
-                        <Input placeholder='Target calories burned value' onChange={(e) => setTarget_calories_burned(e.target.value)}></Input>
-                        <Input placeholder='Target achieved for calories burned' onChange={(e) => setTarget_achieved_calories_burned(e.target.value)}></Input>
+                        <Input type="number" placeholder='Total calories intake on that date' onChange={(e) => setTotal_calories_intake(e.target.value)}></Input>
+                        <Input type="number" placeholder='Target calories intake value' onChange={(e) => setTarget_calories_intake_value(e.target.value)}></Input>
+                        <Input type="number" placeholder='Target achieved for calories intake' onChange={(e) => setTarget_achieved_calories_intake(e.target.value)}></Input>
+                        <Input type="number" placeholder='Total calories burned on that date' onChange={(e) => setTotal_calories_burned(e.target.value)}></Input>
+                        <Input type="number" placeholder='Target calories burned value' onChange={(e) => setTarget_calories_burned(e.target.value)}></Input>
+                        <Input type="number" placeholder='Target achieved for calories burned' onChange={(e) => setTarget_achieved_calories_burned(e.target.value)}></Input>
                     </ModalBody>
 
                     <ModalFooter>

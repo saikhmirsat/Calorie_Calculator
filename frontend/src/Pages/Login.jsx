@@ -72,7 +72,13 @@ export default function Login() {
                             }
                         }
 
-                        Navigate('/')
+                        if (res.user[0].role == "user") {
+                            Navigate('/')
+                        } else {
+                            Navigate('/admin')
+                        }
+
+
                         window.location.reload()
                     } else {
                         alert('something wrong')

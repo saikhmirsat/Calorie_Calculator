@@ -2,16 +2,17 @@ import React from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
 
-export default function User() {
+export default function User(props) {
     const [data, setData] = useState([])
-
+    props.sendDataToParent(data);
 
     const getData = async () => {
         await fetch(`https://vast-red-vulture-sock.cyclic.app/users`)
             .then((res) => res.json())
             .then((res) => {
                 setData(res)
-                console.log(res)
+                // console.log(res)
+
             })
             .catch((e) => console.log(e))
     }
@@ -28,7 +29,7 @@ export default function User() {
             .then((res) => res.json())
             .then((res) => {
                 getData()
-                console.log(res)
+                // console.log(res)
             })
             .catch((e) => console.log(e))
     }

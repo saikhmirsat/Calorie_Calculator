@@ -2,6 +2,8 @@ import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Dashboard from '../Admin/Dashboard'
 import Activity from '../Pages/Activity'
+import Edit2 from '../Pages/Edit2'
+import EditIntake from '../Pages/EditIntake'
 import Foods from '../Pages/Foods'
 import History from '../Pages/History'
 import Home from '../Pages/Home'
@@ -22,6 +24,8 @@ export default function Allroutes() {
             <Route path='/admin' element={<Dashboard />}></Route>
             <Route path='/notes' element={<Notes />}></Route>
             <Route path='/activity' element={<Activity />}></Route>
+            <Route path='/notes/:id' element={<EditIntake />}></Route>
+            <Route path='/notes/:id' element={<Edit2 />}></Route>
         </Routes>
     )
 }

@@ -35,7 +35,7 @@ export default function Activity() {
     const getData = async () => {
 
         setLoading(true)
-        await fetch(`https://vast-red-vulture-sock.cyclic.app/foods`, {
+        await fetch(`https://vast-red-vulture-sock.cyclic.app/activity`, {
             headers: {
                 'Authorization': tokenFromCookies
             }
@@ -154,8 +154,8 @@ export default function Activity() {
                                     food && food.map((ele) =>
                                         <div key={ele._id} >
                                             <img src={ele.image} alt="" />
-                                            <p>Food : {ele.food}</p>
-                                            <p>Calories : <b> {ele.Calories}</b></p>
+                                            <p>Activity : {ele.activity}</p>
+                                            <p>Calories Burned : <b> {ele.calorieBurned}</b></p>
                                             <button onClick={() => {
                                                 AddFood(ele)
 
@@ -176,8 +176,8 @@ export default function Activity() {
                                 selectFood && selectFood.map((ele, index) =>
                                     <div key={ele._id} >
                                         <img src={ele.image} alt="" />
-                                        <p>Food : {ele.food}</p>
-                                        <p>Calories : <b> {ele.Calories}</b></p>
+                                        <p>Activity : {ele.activity}</p>
+                                        <p>Calories Burned : <b> {ele.calorieBurned}</b></p>
                                         <button onClick={() => RemoveFood(ele, index)} >Remove</button>
                                     </div>
                                 )

@@ -61,7 +61,7 @@ TableRoute.delete('/delete/:_id', async (req, res) => {
     try {
         const { _id } = req.params
         await TableModel.findByIdAndDelete({ _id })
-        res.send('Data has deleted')
+        res.send({ "msg": 'Data has deleted' })
     } catch (err) {
         console.log(err)
         res.send('Data has not delete')

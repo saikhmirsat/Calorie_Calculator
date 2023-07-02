@@ -18,6 +18,7 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import { useContext } from 'react'
 import { ImportantContext } from '../Context/ImportantContext'
+import { useNavigate } from 'react-router-dom'
 
 
 export default function Notes() {
@@ -41,6 +42,10 @@ export default function Notes() {
     const user = JSON.parse(localStorage.getItem('userdetails')) || 0
     const id = user._id
     console.log(id)
+
+    const navigate = useNavigate()
+
+
 
     const AddData = async () => {
         let obj = {
@@ -67,6 +72,7 @@ export default function Notes() {
                 .then((res) => {
                     console.log(res)
                     if (res.msg == 'Data has been added') {
+                        getData()
                         onClose()
                     }
                 })
@@ -97,9 +103,32 @@ export default function Notes() {
         getData()
     }, [])
 
+    const GotoEditIntake = (ele) => {
+        navigate(`/notes/${ele._id}`)
+        localStorage.setItem('editData', JSON.stringify(ele))
+    }
+    const GotoEditIntake2 = (ele) => {
+        navigate(`/notes/${ele._id}`)
+        localStorage.setItem('editData', JSON.stringify(ele))
+    }
 
+    const deleteFunc = async (ele) => {
+        try {
+            await fetch(`https://vast-red-vulture-sock.cyclic.app/datas/delete/${ele._id}`, {
+                method: "DELETE",
+                headers: {
+                    'Authorization': token
+                }
+            })
+                .then((res) => res.json())
+                .then((res) => {
 
-
+                    console.log(res)
+                })
+        } catch (err) {
+            console.log(err)
+        }
+    }
 
     return (
         <div>
@@ -139,8 +168,10 @@ export default function Notes() {
                 <div><p>Total calories burned on that date</p></div>
                 <div><p>Target calories burned value</p></div>
                 <div><p>Target achieved for calories burned</p></div>
-                <div><p>Edit</p></div>
-                <div><p>Edit</p></div>
+                <div><p>Edit Target</p></div>
+                <div><p>Edit Total</p></div>
+                <div><p>Delete</p></div>
+
             </div>
 
             {
@@ -155,8 +186,10 @@ export default function Notes() {
                         <div><p>{ele.Total_calories_burned}</p></div>
                         <div><p>{ele.Target_calories_burned}</p></div>
                         <div><p>{ele.Target_achieved_calories_burned}</p></div>
-                        <div><button>edit</button></div>
-                        <div><button>edit</button></div>
+                        <div><button onClick={() => GotoEditIntake(ele)}>edit</button></div>
+                        <div><button onClick={() => GotoEditIntake2(ele)}>edit</button></div>
+                        <div><button onClick={() => deleteFunc(ele)}>delete</button></div>
+
                     </div>
                 )
 

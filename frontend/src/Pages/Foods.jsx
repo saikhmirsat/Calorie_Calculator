@@ -8,10 +8,9 @@ export default function Food() {
     const [saveShown, setSaveshow] = useState(false)
 
     const planFromLs = localStorage.getItem('plan') || ''
+    const [Timefiltervalue, setTimeFiltervalue] = useState("")
 
     const [plan, setPlan] = useState(planFromLs)
-    const [planShow, setPlanShow] = useState(true)
-    // const [calorie, setCalories] = useState(0)
     const [food, setFood] = useState([])
     const [loading, setLoading] = useState(false)
 
@@ -32,7 +31,10 @@ export default function Food() {
 
     const tokenFromCookies = Cookies.get('token')
 
+
+
     const getData = async () => {
+
 
         setLoading(true)
         await fetch(`https://vast-red-vulture-sock.cyclic.app/foods`, {
@@ -42,7 +44,7 @@ export default function Food() {
         }).then(res => res.json())
             .then(res => {
                 setLoading(false)
-                console.log(res)
+                // console.log(res)
                 setFood(res)
 
             })
@@ -134,6 +136,7 @@ export default function Food() {
     }
 
 
+
     return (
         <div>
             <div>
@@ -145,6 +148,12 @@ export default function Food() {
                     </select>
 
                 </div>
+                <select name="" id="" onChange={() => setTimeFiltervalue(e.target.value)}>
+                    <option value="">Filter</option>
+                    <option value="breakfast">Breakfast</option>
+                    <option value="lunch">Lunch</option>
+                    <option value="dinner">Dinner</option>
+                </select>
                 <div className='FoodContainer' >
                     <div>
                         {loading ? <img className='loading_gif_foodshown_con' width='300px' src="https://kostt.com/assets/img/preloader.gif" alt="" /> :

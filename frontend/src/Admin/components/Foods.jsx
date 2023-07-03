@@ -10,12 +10,18 @@ import {
   ModalBody,
   ModalCloseButton,
   useDisclosure,
-  Button
+  Button,
+  Input
 } from '@chakra-ui/react'
 
 export default function Foods(props) {
 
+
+
   const [food, setFood] = useState([])
+  const [editID, setEditId] = useState("")
+
+  const [showAddFood, setShowAddFood] = useState(false)
 
   props.sendFoodData(food)
 
@@ -29,7 +35,7 @@ export default function Foods(props) {
       }
     }).then(res => res.json())
       .then(res => {
-        console.log(res)
+        // console.log(res)
         setFood(res)
       })
       .catch(err => {
@@ -48,7 +54,7 @@ export default function Foods(props) {
       }
     }).then(res => res.json())
       .then(res => {
-        console.log(res)
+        // console.log(res)
         getData()
       })
       .catch(err => {
@@ -56,9 +62,10 @@ export default function Foods(props) {
       })
   }
 
-  const EditFunc = (ele) => {
-    console.log(ele)
+  const EditFunc = () => {
+    console.log(editID)
   }
+
 
 
   return (
@@ -71,12 +78,30 @@ export default function Foods(props) {
               <p>Food : {ele.food}</p>
               <p>Calories : <b> {ele.Calories}</b></p>
               <div style={{ display: 'flex', boxShadow: 'unset', gap: '10px' }}>
-                <button onClick={() => EditFunc(ele)}>Edit</button>
+                <button onClick={onOpen}>Edit</button>
+
                 <button onClick={() => DeleteFunc(ele)}>Delete</button>
+
               </div>
 
+              <Modal isOpen={isOpen} onClose={onClose}>
+                {/* <ModalOverlay /> */}
+                <ModalContent>
+                  <ModalHeader>Modal Title</ModalHeader>
+                  <ModalCloseButton />
+                  <ModalBody>
+
+                  </ModalBody>
 
 
+                  <ModalFooter>
+                    <Button colorScheme='blue' mr={3} onClick={onClose}>
+                      Close
+                    </Button>
+                    <Button onClick={EditFunc}>Save</Button>
+                  </ModalFooter>
+                </ModalContent>
+              </Modal>
             </div>
           )
         }
@@ -87,3 +112,7 @@ export default function Foods(props) {
     </div>
   )
 }
+
+
+
+

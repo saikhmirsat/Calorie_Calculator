@@ -17,7 +17,7 @@ export default function Acitivity(props) {
             }
         }).then(res => res.json())
             .then(res => {
-                console.log(res)
+                // console.log(res)
                 setActivity(res)
             })
             .catch(err => {

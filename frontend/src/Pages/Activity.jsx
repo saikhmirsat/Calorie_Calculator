@@ -1,32 +1,27 @@
 import React from 'react'
+import './Food.css'
 import './Activity.css'
 import { useEffect } from 'react'
 import Cookies from 'js-cookie';
 import { useState } from 'react';
 
 export default function Activity() {
-    const [saveShown, setSaveshow] = useState(false)
 
-    const planFromLs = localStorage.getItem('plan') || ''
-
-    const [plan, setPlan] = useState(planFromLs)
-    const [planShow, setPlanShow] = useState(true)
-    // const [calorie, setCalories] = useState(0)
     const [food, setFood] = useState([])
+
     const [loading, setLoading] = useState(false)
 
     const totalFronLs = +localStorage.getItem('total_calories') || 0
 
     const [totalCalories, setTotalCalories] = useState(totalFronLs)
+    localStorage.setItem('FinalBurneCalories', totalCalories)
 
-    const todayData = JSON.parse(localStorage.getItem('todayData')) || []
+    const todayActivity = JSON.parse(localStorage.getItem('todayActivity')) || []
 
-    const [arrCal, setArrcal] = useState([])
 
-    const [selectFood, setSelectFood] = useState(todayData)
+    const [selectFood, setSelectFood] = useState(todayActivity)
 
-    const todayLocalStorageData = JSON.parse(localStorage.getItem('todayData')) || []
-    console.log(todayLocalStorageData)
+    const todayLocalStorageData = JSON.parse(localStorage.getItem('todayActivity')) || []
 
     let calorie = localStorage.getItem('total_calories') || 0
 
@@ -37,12 +32,11 @@ export default function Activity() {
         setLoading(true)
         await fetch(`https://vast-red-vulture-sock.cyclic.app/activity`, {
             headers: {
-                'Authorization': tokenFromCookies
+                'Authorization': tokenFromCookies,
             }
         }).then(res => res.json())
             .then(res => {
                 setLoading(false)
-                console.log(res)
                 setFood(res)
 
             })
@@ -53,50 +47,38 @@ export default function Activity() {
     }
     useEffect(() => {
         getData()
+        getTotalData()
     }, [])
 
     const AddFood = (ele) => {
-        if (plan == "") {
-            alert('Plaese selecet a plan first')
-        } else {
-            setSaveshow(true)
-            todayLocalStorageData.push(ele)
-            localStorage.setItem('todayData', JSON.stringify(todayLocalStorageData))
-            localStorage.setItem('plan', plan)
 
-            setSelectFood([...selectFood, ele])
+        todayLocalStorageData.push(ele)
+        localStorage.setItem('todayActivity', JSON.stringify(todayLocalStorageData))
 
-            let total = 0
-            for (var i = 0; i < todayLocalStorageData.length; i++) {
-                if (isNaN(todayLocalStorageData[i].Calories)) {
-                    continue;
-                }
-                total += Number(todayLocalStorageData[i].Calories);
-            }
+        setSelectFood([...selectFood, ele])
 
-            setTotalCalories(total)
-            localStorage.setItem('total_calories', total)
+        let ActDataArr = JSON.parse(localStorage.getItem('todayActivity'))
 
-        }
+        let finalCount = ActDataArr.map((ele) => ele.calorieBurned * ele.steps)
+        console.log(finalCount)
+        const sum = finalCount.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+        console.log({ "sum": sum })
+        setTotalCalories(sum)
     }
 
     const RemoveFood = (ele, ind) => {
         setSelectFood(selectFood => selectFood.filter(item => item._id !== ele._id))
 
         todayLocalStorageData.splice(ind, 1)
-        localStorage.setItem('todayData', JSON.stringify(todayLocalStorageData))
+        localStorage.setItem('todayActivity', JSON.stringify(todayLocalStorageData))
 
-        let total = 0
-        for (var i = 0; i < todayLocalStorageData.length; i++) {
-            if (isNaN(todayLocalStorageData[i].Calories)) {
-                continue;
-            }
-            total += Number(todayLocalStorageData[i].Calories);
-        }
+        let ActDataArr = JSON.parse(localStorage.getItem('todayActivity'))
 
-        setTotalCalories(total)
-        localStorage.setItem('total_calories', total)
-
+        let finalCount = ActDataArr.map((ele) => ele.calorieBurned * ele.steps)
+        console.log(finalCount)
+        const sum = finalCount.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+        console.log({ "sum": sum })
+        setTotalCalories(sum)
 
     }
 
@@ -104,28 +86,25 @@ export default function Activity() {
     const SaveFunction = async () => {
         let obj = {
             "date": new Date().toISOString().split('T')[0],
-            "plan": plan,
             "totalCalories": calorie,
-            "dailydata": todayLocalStorageData,
+            "dailydata": selectFood,
         }
         await fetch('http://localhost:8080/history/add', {
             method: "POST",
             body: JSON.stringify(obj),
             headers: {
                 "Content-type": "application/json",
-                "Authorization": tokenFromCookies
+                "Authorization": tokenFromCookies,
             }
         }).then((res) => res.json())
             .then((res) => {
                 if (res.msg === "Data has been added") {
                     setSelectFood([])
-                    window.localStorage.removeItem("todayData")
+                    window.localStorage.removeItem("todayActivity")
                     localStorage.setItem('todayCalories', calorie)
                     setTotalCalories(0)
                     window.localStorage.removeItem("total_calories")
-                    window.localStorage.removeItem('plan')
 
-                    setPlan("")
                     alert('Your data save in history')
                 }
                 console.log(res)
@@ -133,16 +112,100 @@ export default function Activity() {
             .catch((err) => console.log(err))
     }
 
+    const Inc = (id, stp) => {
+
+        setSelectFood((selectFood) =>
+            selectFood.map((item) =>
+                item._id === id ? { ...item, steps: stp } : item
+            )
+        );
+
+        const IncArr = []
+
+        for (let i = 0; i < selectFood.length; i++) {
+            if (selectFood[i]._id == id) {
+
+                let newObj = {
+                    activity: selectFood[i].activity,
+                    calorieBurned: selectFood[i].calorieBurned,
+                    image: selectFood[i].image,
+                    steps: stp,
+                    _id: selectFood[i]._id
+                }
+                IncArr.push(newObj)
+
+            } else {
+                IncArr.push(selectFood[i])
+            }
+        }
+
+        localStorage.setItem('todayActivity', JSON.stringify(IncArr))
+
+        let ActDataArr = JSON.parse(localStorage.getItem('todayActivity'))
+
+        let finalCount = ActDataArr.map((ele) => ele.calorieBurned * ele.steps)
+        console.log(finalCount)
+        const sum = finalCount.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+        console.log({ "sum": sum })
+        setTotalCalories(sum)
+
+
+    }
+    const Dec = (id, stp) => {
+
+        setSelectFood((selectFood) =>
+            selectFood.map((item) =>
+                item._id === id ? { ...item, steps: stp } : item
+            )
+        );
+
+        const DecArr = []
+
+        for (let i = 0; i < selectFood.length; i++) {
+            if (selectFood[i]._id == id) {
+
+                let newObj = {
+                    activity: selectFood[i].activity,
+                    calorieBurned: selectFood[i].calorieBurned,
+                    image: selectFood[i].image,
+                    steps: stp,
+                    _id: selectFood[i]._id
+                }
+                DecArr.push(newObj)
+            } else {
+                DecArr.push(selectFood[i])
+            }
+        }
+
+        localStorage.setItem('todayActivity', JSON.stringify(DecArr))
+
+        let ActDataArr = JSON.parse(localStorage.getItem('todayActivity'))
+
+        let finalCount = ActDataArr.map((ele) => ele.calorieBurned * ele.steps)
+        console.log(finalCount)
+        const sum = finalCount.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+        console.log({ "sum": sum })
+        setTotalCalories(sum)
+    }
+
+    const getTotalData = () => {
+        // let ActDataArr = JSON.parse(localStorage.getItem('todayActivity'))
+        // console.log(ActDataArr)
+
+        let finalCount = selectFood.map((ele) => ele.calorieBurned * ele.steps)
+        console.log(finalCount)
+
+        const sum = finalCount.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+
+        setTotalCalories(sum)
+        localStorage.setItem('FinalBurneCalories', sum)
+    }
+
 
     return (
         <div>
             <div>
                 <div className='filterContainer' >
-                    <select onChange={(e) => setPlan(e.target.value)}>
-                        <option value="">Plan For</option>
-                        <option value="weight-gain">Weight Gain</option>
-                        <option value="weight-loos">Weaight Loos</option>
-                    </select>
 
                 </div>
                 <div className='FoodContainer' >
@@ -169,17 +232,25 @@ export default function Activity() {
                     </div>
                     <div  >
                         <div className='bitInfo' >
-                            <h1>{plan === 'weight-gain' ? 'Weight Gain' : plan === 'weight-loos' ? 'Weight Loos' : 'Please select a plan'}</h1>
+                            <h1>Activities Counter</h1>
                         </div>
-                        <div className='showWantToremove' >
+                        <div className='seleceted_activity_main_con' >
                             {
                                 selectFood && selectFood.map((ele, index) =>
                                     <div key={ele._id} >
                                         <img src={ele.image} alt="" />
                                         <p>Activity : {ele.activity}</p>
                                         <p>Calories Burned : <b> {ele.calorieBurned}</b></p>
+
+                                        <p style={{ display: 'flex', gap: '10px', justifyContent: 'space-between' }} >
+                                            <button className='Inc_dec_btn_activity' disabled={ele.steps == 1} onClick={() => Dec(ele._id, ele.steps - 1)} >-</button>
+                                            <p>Steps : <b> {ele.steps}</b></p>
+                                            <button className='Inc_dec_btn_activity' onClick={() => Inc(ele._id, ele.steps + 1)} >+</button>
+                                        </p>
+                                        <p>Total Calories burn : <b> {ele.steps * ele.calorieBurned}</b></p>
                                         <button onClick={() => RemoveFood(ele, index)} >Remove</button>
                                     </div>
+
                                 )
                             }
                         </div>

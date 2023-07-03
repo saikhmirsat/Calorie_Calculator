@@ -12,13 +12,19 @@ import { useEffect } from 'react';
 import Foods from './components/Foods';
 import Acitivity from './components/Acitivity';
 import Cookies from 'js-cookie';
+import Admin from './components/Admin';
+import FoodAndActivity from './components/FoodAndActivity';
 
 
 export default function Dashboard() {
 
     const [userpage, setUserpage] = useState(false)
+    const [adminpage, setAdminpage] = useState(false)
     const [foodpage, setFoodpage] = useState(false)
     const [activitypage, setActivitypage] = useState(false)
+    const [AddFood_activitypage, setFood_Activitypage] = useState(false)
+
+
     const [usersData, setUsersData] = useState("")
     const [adminData, setAdminData] = useState("")
     const [foodData, setFoodData] = useState("")
@@ -36,17 +42,40 @@ export default function Dashboard() {
         setFoodpage(false)
         setActivitypage(false)
         setDefaultDash(false)
+        setAdminpage(false)
+        setFood_Activitypage(false)
     }
     const foodFunc = () => {
         setUserpage(false)
         setFoodpage(true)
         setActivitypage(false)
         setDefaultDash(false)
+        setAdminpage(false)
+        setFood_Activitypage(false)
     }
     const activityFunc = () => {
         setUserpage(false)
         setFoodpage(false)
         setActivitypage(true)
+        setDefaultDash(false)
+        setAdminpage(false)
+        setFood_Activitypage(false)
+    }
+
+    const adminFunc = () => {
+        setAdminpage(true)
+        setUserpage(false)
+        setFoodpage(false)
+        setActivitypage(false)
+        setDefaultDash(false)
+        setFood_Activitypage(false)
+    }
+    const AddFoodAndActivityFunc = () => {
+        setFood_Activitypage(true)
+        setAdminpage(false)
+        setUserpage(false)
+        setFoodpage(false)
+        setActivitypage(false)
         setDefaultDash(false)
     }
 
@@ -87,7 +116,7 @@ export default function Dashboard() {
             }
         }).then(res => res.json())
             .then(res => {
-                console.log({ "his": res })
+                // console.log({ "his": res })
                 setHistoryData(res)
             })
             .catch(err => {
@@ -113,9 +142,10 @@ export default function Dashboard() {
                 </div>
                 <div className='admin_section_div'>
                     <button onClick={userFunc}>Users</button>
-                    <button >Admin</button>
+                    <button onClick={adminFunc}>Admin</button>
                     <button onClick={foodFunc}>Foods</button>
                     <button onClick={activityFunc}>Activity</button>
+                    <button onClick={AddFoodAndActivityFunc}>Add Food & Activity</button>
                 </div>
 
             </div>
@@ -124,12 +154,19 @@ export default function Dashboard() {
                 <div className={userpage ? 'userpage' : "invisible"}>
                     <User sendDataToParent={getData} />
                 </div>
+                <div className={adminpage ? 'adminpage' : "invisible"}>
+                    <Admin />
+                </div>
                 <div className={foodpage ? 'foodpage' : "invisible"}>
                     <Foods sendFoodData={getFoodData} />
                 </div>
                 <div className={activitypage ? 'activitypage' : "invisible"}>
                     <Acitivity sendActivityData={getActivityData} />
                 </div>
+                <div className={AddFood_activitypage ? 'Food_Activity_add_box' : "invisible"}>
+                    <FoodAndActivity />
+                </div>
+
 
                 <div className={defaultDash ? "adminPannel_default_screen" : "invisible"}>
                     <div>

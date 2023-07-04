@@ -22,7 +22,7 @@ export default function History() {
 
     const getData = async () => {
         try {
-            await fetch(`http://localhost:8080/history/${id}`, {
+            await fetch(`https://vast-red-vulture-sock.cyclic.app/history/${id}`, {
                 headers: {
                     'Authorization': token
                 }
@@ -38,7 +38,7 @@ export default function History() {
     }
 
     const RemoveFunc = async (ele) => {
-        await fetch(`http://localhost:8080/history/delete/${ele._id}`, {
+        await fetch(`https://vast-red-vulture-sock.cyclic.app/delete/${ele._id}`, {
             method: "DELETE",
             headers: {
                 'Authorization': token

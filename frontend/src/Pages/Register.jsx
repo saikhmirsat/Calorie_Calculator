@@ -38,7 +38,7 @@ export default function Register() {
 
             try {
                 setLoading(true)
-                await fetch(`http://localhost:8080/users/register`, {
+                await fetch(`https://vast-red-vulture-sock.cyclic.app/users/register`, {
                     method: "POST",
                     body: JSON.stringify(obj),
                     headers: {

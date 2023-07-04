@@ -89,7 +89,7 @@ export default function Activity() {
             "totalCalories": calorie,
             "dailydata": selectFood,
         }
-        await fetch('http://localhost:8080/history/add', {
+        await fetch('https://vast-red-vulture-sock.cyclic.app/history/add', {
             method: "POST",
             body: JSON.stringify(obj),
             headers: {

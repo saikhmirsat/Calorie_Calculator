@@ -84,7 +84,7 @@ export default function Notes() {
 
     const getData = async () => {
         try {
-            await fetch(`http://localhost:8080/datas/${id}`, {
+            await fetch(`https://vast-red-vulture-sock.cyclic.app/datas/${id}`, {
                 headers: {
                     'Authorization': token
                 }

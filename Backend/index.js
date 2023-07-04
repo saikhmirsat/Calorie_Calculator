@@ -7,6 +7,7 @@ const { FoodRoute } = require("./routes/Food.routes")
 const { HistoryRoutes } = require('./routes/History.routes')
 const { ActivityRoute } = require('./routes/Activity.routes')
 const { ExerciseRoute } = require('./routes/Exercise.routes')
+const { ActivityHistoryRoutes } = require('./routes/Activityhistory.routes')
 
 const cors = require('cors')
 
@@ -25,6 +26,7 @@ app.use("/foods", FoodRoute)
 app.use("/history", HistoryRoutes)
 app.use("/activity", ActivityRoute)
 app.use("/exercise", ExerciseRoute)
+app.use("/activityhistory", ActivityHistoryRoutes)
 
 app.listen(8080, async () => {
     try {

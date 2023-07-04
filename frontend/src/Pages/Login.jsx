@@ -25,7 +25,7 @@ export default function Login() {
             alert("Please check")
         } else {
             setLoading(true)
-            await fetch(`http://localhost:8080/users/login`, {
+            await fetch(`https://vast-red-vulture-sock.cyclic.app/users/login`, {
                 method: "POST",
                 body: JSON.stringify(obj),
                 headers: {
@@ -77,8 +77,6 @@ export default function Login() {
                         } else {
                             Navigate('/admin')
                         }
-
-
                         window.location.reload()
                     } else {
                         alert('something wrong')

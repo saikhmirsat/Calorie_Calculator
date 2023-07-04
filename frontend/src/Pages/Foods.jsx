@@ -110,7 +110,7 @@ export default function Food() {
             "totalCalories": calorie,
             "dailydata": todayLocalStorageData,
         }
-        await fetch('http://localhost:8080/history/add', {
+        await fetch('https://vast-red-vulture-sock.cyclic.app/history/add', {
             method: "POST",
             body: JSON.stringify(obj),
             headers: {
@@ -136,6 +136,27 @@ export default function Food() {
     }
 
 
+    const FilterFunc = async (value) => {
+        setLoading(true)
+        await fetch(`https://vast-red-vulture-sock.cyclic.app/foods/${value}`, {
+            headers: {
+                'Authorization': tokenFromCookies
+            }
+        })
+            .then((res) => res.json())
+            .then((res) => {
+                setLoading(false)
+                setFood(res)
+                // console.log(res)
+            })
+            .catch((e) => {
+                setLoading(false)
+                console.log(e)
+            })
+
+    }
+
+
 
     return (
         <div>
@@ -148,7 +169,7 @@ export default function Food() {
                     </select>
 
                 </div>
-                <select name="" id="" onChange={() => setTimeFiltervalue(e.target.value)}>
+                <select name="" id="" onChange={(e) => FilterFunc(e.target.value)}>
                     <option value="">Filter</option>
                     <option value="breakfast">Breakfast</option>
                     <option value="lunch">Lunch</option>

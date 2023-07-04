@@ -11,6 +11,7 @@ import gym from '../Images/gym.webp'
 export default function Home() {
 
     const TodayCal = localStorage.getItem('todayCalories')
+    const TodayBurnedCal = localStorage.getItem('todayBurnedCalories')
 
     const user = JSON.parse(localStorage.getItem('userdetails')) || 0
     const id = user._id
@@ -19,7 +20,7 @@ export default function Home() {
     const calorie = localStorage.getItem('calories')
 
 
-    let needCal = calorie - TodayCal
+    let needCal = calorie - TodayCal - TodayBurnedCal
     console.log(needCal)
 
 
@@ -40,6 +41,7 @@ export default function Home() {
                         <h1><b style={{ color: 'black' }}>{calorie} </b> &nbsp; number of calories you need daily.</h1>
 
                         <h1>Your today consumed calories number : {TodayCal}</h1>
+                        <h1>Your today Burned calories number : {TodayBurnedCal}</h1>
                         <h1>To fullfill your daily calories requirement you have to consume rest <b>{needCal}+</b> calories.  </h1>
                     </div>
                 </div>

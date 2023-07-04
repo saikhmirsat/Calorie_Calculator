@@ -2,6 +2,19 @@
     /* border: 1px solid red; */
 }
 
+.History_container>h1 {
+    border: 1px solid black;
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    width: 40%;
+    margin: auto;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    background-color: #EA9F37;
+}
+
 .History_container>input {
     /* border: 1px solid grey; */
     margin-bottom: 5px;
@@ -12,6 +25,8 @@
 
 .His_box {
     /* border: 1px solid green; */
+    height: 300px;
+    overflow-x: scroll;
 }
 
 .heading_his_box_card {

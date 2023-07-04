@@ -14,8 +14,8 @@ export default function Activity() {
     const totalFronLs = +localStorage.getItem('total_calories') || 0
 
     const [totalCalories, setTotalCalories] = useState(totalFronLs)
-    localStorage.setItem('FinalBurneCalories', totalCalories)
-
+    // localStorage.setItem('FinalBurneCalories', totalCalories)
+    // console.log({ "total Cal": totalCalories })
     const todayActivity = JSON.parse(localStorage.getItem('todayActivity')) || []
 
 
@@ -86,10 +86,11 @@ export default function Activity() {
     const SaveFunction = async () => {
         let obj = {
             "date": new Date().toISOString().split('T')[0],
-            "totalCalories": calorie,
+            "totalCaloriesBurned": totalCalories,
+            "name": "Activities",
             "dailydata": selectFood,
         }
-        await fetch('https://vast-red-vulture-sock.cyclic.app/history/add', {
+        await fetch('https://vast-red-vulture-sock.cyclic.app/activityhistory/add', {
             method: "POST",
             body: JSON.stringify(obj),
             headers: {
@@ -101,9 +102,9 @@ export default function Activity() {
                 if (res.msg === "Data has been added") {
                     setSelectFood([])
                     window.localStorage.removeItem("todayActivity")
-                    localStorage.setItem('todayCalories', calorie)
+                    localStorage.setItem('todayBurnedCalories', totalCalories)
                     setTotalCalories(0)
-                    window.localStorage.removeItem("total_calories")
+                    window.localStorage.removeItem("FinalBurneCalories")
 
                     alert('Your data save in history')
                 }

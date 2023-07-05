@@ -1,5 +1,6 @@
 .profile_main {
     border: 1px solid green;
+    height: 100vh;
 }
 
 .profile_root_name {
@@ -61,7 +62,7 @@
 
 .profileDetail>div {
     /* border: 1px solid black; */
-    height: 400px;
+    height: 450px;
 }
 
 .profile_child1 {
@@ -72,18 +73,60 @@
 
 .profile_child1 img {
     width: 50%;
+    height: 250px;
     border-radius: 50%;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 .profile_child2 {
+    /* border: 1px solid green; */
     padding: 50px;
     text-align: left;
-    display: flex;
-    align-items: center;
+
 }
 
 .profile_child2>div {
 
-    border: 1px solid rebeccapurple;
+    /* border: 1px solid rebeccapurple; */
+}
+
+.profile_child2 div h1 {
+    /* border: 1px solid rebeccapurple; */
+    font-size: large;
+    margin-bottom: 10px;
+}
+
+.invisible {
+    display: none;
+}
+
+.Profile_edit_cont {
+    border: 1px solid grey;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+}
+
+.Profile_edit_cont input {
+    border: 1px solid rgb(198, 195, 195);
+    height: 40px;
+    width: 100%;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    padding-left: 20px;
+}
+
+.Profile_edit_cont select {
+    border: 1px solid rgb(198, 195, 195);
+    height: 40px;
+    width: 100%;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+
+.profile_child2 button {
+    border: 1px solid green;
+    width: 200px;
+    background-color: #1f427f;
+    color: white;
 }

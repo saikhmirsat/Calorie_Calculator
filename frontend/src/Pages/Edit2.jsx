@@ -1,12 +1,14 @@
+import { Spinner } from '@chakra-ui/react'
 import React from 'react'
 import { useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
+import './Edit.css'
 
 
 export default function Edit2() {
     const [Total_calories_intake, setTotal_calories_intake] = useState("")
     const [Total_calories_burned, setTotal_calories_burned] = useState("")
-
+    const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
     const { id } = useParams()
     console.log({ "myId": id })
@@ -22,6 +24,7 @@ export default function Edit2() {
         }
 
         try {
+            setLoading(true)
             await fetch(`https://vast-red-vulture-sock.cyclic.app/datas/edit/${id}`, {
                 method: "PATCH",
                 body: JSON.stringify(obj),
@@ -33,6 +36,7 @@ export default function Edit2() {
                 .then((res) => {
                     console.log(res)
                     if (res.msg === "data has been update") {
+                        setLoading(false)
                         localStorage.removeItem('editData')
                         navigate('/notes')
                         alert(res.msg)
@@ -40,6 +44,7 @@ export default function Edit2() {
 
                 })
         } catch (err) {
+            setLoading(false)
             console.log(err)
         }
 
@@ -50,8 +55,9 @@ export default function Edit2() {
             <div>
                 <input type="number" placeholder='Total calories intake on that date' onChange={(e) => setTotal_calories_intake(e.target.value)} />
                 <input type="number" placeholder='Total calories burned on that date' onChange={(e) => setTotal_calories_burned(e.target.value)} />
-                <button onClick={saveFunc}>Save</button>
+                <button onClick={saveFunc}>{loading ? <Spinner /> : ""}</button>
             </div>
+            <span>Click here </span><Link to='/notes' style={{ color: 'blue' }}>go Back</Link>
         </div>
     )
 }

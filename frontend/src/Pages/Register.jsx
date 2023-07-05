@@ -1,4 +1,4 @@
-import { Spinner } from '@chakra-ui/react'
+import { Spinner, Text } from '@chakra-ui/react'
 import React from 'react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -54,7 +54,7 @@ export default function Register() {
                         } else {
                             alert('Something wrong')
                         }
-                    })
+                    }).catch((e) => console.log(e))
             } catch (err) {
                 console.log(err)
                 alert(err)
@@ -69,6 +69,7 @@ export default function Register() {
     return (
         <div className='register_main_con'>
             <div className='Register_con'>
+                <h1 style={{ fontSize: '30px', fontWeight: 'bold', marginBottom: '15px' }}>Register</h1>
                 <input type="text" placeholder='First Name' onChange={(e) => setFname(e.target.value)} />
                 <input type="text" placeholder='Last Name' onChange={(e) => setLname(e.target.value)} />
                 <input type="text" placeholder='Email' onChange={(e) => setEmail(e.target.value)} />

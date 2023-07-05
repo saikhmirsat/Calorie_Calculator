@@ -10,8 +10,8 @@ import gym from '../Images/gym.webp'
 
 export default function Home() {
 
-    const TodayCal = localStorage.getItem('todayCalories')
-    const TodayBurnedCal = localStorage.getItem('todayBurnedCalories')
+    const TodayCal = localStorage.getItem('todayCalories') || 0
+    const TodayBurnedCal = localStorage.getItem('todayBurnedCalories') || 0
 
     const user = JSON.parse(localStorage.getItem('userdetails')) || 0
     const id = user._id

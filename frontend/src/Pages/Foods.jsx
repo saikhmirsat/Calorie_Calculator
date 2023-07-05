@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './Food.css'
-import { Button } from '@chakra-ui/react'
+import { Button, Spinner } from '@chakra-ui/react'
 import { useEffect } from 'react'
 import Cookies from 'js-cookie';
 
@@ -104,6 +104,7 @@ export default function Food() {
 
 
     const SaveFunction = async () => {
+        setLoading(true)
         let obj = {
             "date": new Date().toISOString().split('T')[0],
             "plan": plan,
@@ -120,6 +121,7 @@ export default function Food() {
         }).then((res) => res.json())
             .then((res) => {
                 if (res.msg === "Data has been added") {
+                    setLoading(false)
                     setSelectFood([])
                     window.localStorage.removeItem("todayData")
                     localStorage.setItem('todayCalories', calorie)
@@ -132,7 +134,10 @@ export default function Food() {
                 }
                 console.log(res)
             })
-            .catch((err) => console.log(err))
+            .catch((err) => {
+                setLoading(false)
+                console.log(err)
+            })
     }
 
 
@@ -215,7 +220,7 @@ export default function Food() {
                         </div>
 
                         {totalCalories == 0 ? "" : <h1 className="total_calories_amount" >Total Calories : <b>{totalCalories}</b></h1>}
-                        {totalCalories == 0 ? <h1 style={{ fontSize: "20px", fontWeight: "bold" }}>Add food to calculate calories</h1> : <button onClick={SaveFunction}>Save</button>}
+                        {totalCalories == 0 ? <h1 style={{ fontSize: "20px", fontWeight: "bold" }}>Add food to calculate calories</h1> : <button onClick={SaveFunction}>{loading ? <Spinner /> : "Save"}</button>}
 
                     </div>
                 </div>

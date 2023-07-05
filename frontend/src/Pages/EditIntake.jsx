@@ -1,10 +1,13 @@
+import { chakra } from '@chakra-ui/react'
 import React from 'react'
 import { useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
-
+import { Link, useNavigate, useParams } from 'react-router-dom'
+import './Edit.css'
+import { Spinner } from '@chakra-ui/react'
 
 export default function EditIntake() {
 
+    const [loading, setLoading] = useState(false)
 
     const [Target_calories_intake_value, setTarget_calories_intake_value] = useState("")
     const [Target_calories_burned, setTarget_calories_burned] = useState("")
@@ -25,6 +28,7 @@ export default function EditIntake() {
         }
 
         try {
+            setLoading(true)
             await fetch(`https://vast-red-vulture-sock.cyclic.app/datas/edit/${id}`, {
                 method: "PATCH",
                 body: JSON.stringify(obj),
@@ -36,6 +40,7 @@ export default function EditIntake() {
                 .then((res) => {
                     console.log(res)
                     if (res.msg === "data has been update") {
+                        setLoading(false)
                         localStorage.removeItem('editData')
                         navigate('/notes')
                         alert(res.msg)
@@ -43,18 +48,20 @@ export default function EditIntake() {
 
                 })
         } catch (err) {
+            setLoading(false)
             console.log(err)
         }
 
     }
 
     return (
-        <div>
+        <div className='main_container_input_box_edit'>
             <div>
                 <input type="number" placeholder='Target calories intake value' onChange={(e) => setTarget_calories_intake_value(e.target.value)} />
                 <input type="number" placeholder='Target calories burned value' onChange={(e) => setTarget_calories_burned(e.target.value)} />
-                <button onClick={saveFunc}>Save</button>
+                <button onClick={saveFunc}>{loading ? <Spinner /> : "Save"}</button>
             </div>
+            <span>Click here </span><Link to='/notes' style={{ color: 'blue' }}>go Back</Link>
         </div>
     )
 }

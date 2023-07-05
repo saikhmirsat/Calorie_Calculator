@@ -13,6 +13,7 @@ export default function Login() {
     const [loading, setLoading] = useState(false)
 
 
+
     const Navigate = useNavigate()
 
     const Login = async () => {
@@ -43,7 +44,7 @@ export default function Login() {
                         Cookies.set('token', token, { expires: expirationTime });
                         Cookies.set('isAuth', true, { expires: expirationTime });
                         Cookies.set('role', res.user[0].role, { expires: expirationTime });
-
+                        alert('Login SUccessful')
                         let user = JSON.parse(localStorage.getItem('userdetails'))
                         let young = ""
                         let mature = ""
@@ -90,6 +91,7 @@ export default function Login() {
     return (
         <div className='login_main_con'>
             <div className='loginContainer' >
+                <h1 style={{ fontSize: '30px', fontWeight: 'bold', marginBottom: '15px' }}>Login</h1>
                 <input type="text" placeholder='email' onChange={(e) => setEmail(e.target.value)} />
                 <input type="text" placeholder='password' onChange={(e) => setpassword(e.target.value)} />
                 <button onClick={Login}>{loading ? <Spinner /> : "Login"}</button>

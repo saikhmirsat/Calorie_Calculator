@@ -9,7 +9,7 @@ import { ImportantContext } from '../Context/ImportantContext';
 export default function Navbar() {
 
     const { isAuth } = useContext(ImportantContext)
-
+    const role = Cookies.get('role')
 
     return (
         <div className='navBar' >
@@ -20,17 +20,19 @@ export default function Navbar() {
             </div>
             <div>
 
+
+
                 {
-                    isAuth ? <Link to="/notes">Notes</Link> : ""
+                    role == 'admin' ? "" : isAuth ? <Link to="/fooddiet">Food Calories</Link> : ""
                 }
                 {
-                    isAuth ? <Link to='/activity'>Activity</Link> : ""
+                    role == 'admin' ? "" : isAuth ? <Link to='/activity'>Activity</Link> : ""
                 }
                 {
-                    isAuth ? <Link to="/fooddiet">Food Calories</Link> : ""
+                    role == 'admin' ? "" : isAuth ? <Link to="/notes">Notes</Link> : ""
                 }
                 {
-                    isAuth ? <Link to="/history">History</Link> : ""
+                    role == 'admin' ? "" : isAuth ? <Link to="/history">History</Link> : ""
                 }
                 {
                     isAuth ?

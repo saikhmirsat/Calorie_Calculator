@@ -119,7 +119,7 @@ export default function Acitivity(props) {
                             <Modal isOpen={isOpen} onClose={onClose}>
                                 {/* <ModalOverlay /> */}
                                 <ModalContent>
-                                    <ModalHeader>Modal Title</ModalHeader>
+                                    <ModalHeader>Fill the details</ModalHeader>
                                     <ModalCloseButton />
                                     <ModalBody>
                                         <Input placeholder='Activity' onChange={(e) => setActivityValue(e.target.value)} />

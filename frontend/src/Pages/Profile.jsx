@@ -2,7 +2,7 @@ import React from 'react'
 import './Profile.css'
 import { Button, Spinner } from '@chakra-ui/react'
 import Cookies from 'js-cookie';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
 
@@ -24,7 +24,7 @@ export default function Profile() {
 
     let token = Cookies.get('token')
 
-
+    let role = Cookies.get('role')
     const navigate = useNavigate()
 
     const logoutFunc = () => {
@@ -98,12 +98,16 @@ export default function Profile() {
     const SaveFunc = () => {
         setVisible(true)
     }
+    const GoBackProfile = () => {
+        setVisible(false)
+    }
 
     return (
         <div className='profile_main'>
             <div className="profile_container_1">
                 <h1>My Account</h1>
                 <p>HELLO, {User.firstname}</p>
+                {role === 'admin' ? <Link className='profile_admin_dash_btn' to='/admin'>Admin Dashboard</Link> : ""}
                 <button onClick={logoutFunc} className="LogoutBTN">Logout</button>
                 <p>From your My Account you have the ability to view your recent account activity and update your account information.</p>
             </div>
@@ -141,6 +145,7 @@ export default function Profile() {
                         <input type="file" placeholder='Avatar' onChange={(e) => setAvatar(e.target.files[0])} />
                     </div>
                     <Button onClick={visible ? EditFunc : SaveFunc}>{visible ? loading ? <Spinner /> : "Save" : "Edit"}</Button>
+                    {visible ? <span style={{ marginLeft: '20px' }}><b style={{ color: 'blue', cursor: 'pointer' }} onClick={GoBackProfile}>Click</b> here to go back</span> : ""}
                 </div>
             </div>
         </div >

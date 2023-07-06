@@ -11,6 +11,7 @@ export default function Food() {
     const [food, setFood] = useState([])
     const [loading, setLoading] = useState(false)
 
+    const [loadingSaveBTN, setLoadingSaveBTN] = useState(false)
     const totalFronLs = +localStorage.getItem('total_calories') || 0
 
     const [totalCalories, setTotalCalories] = useState(totalFronLs)
@@ -102,7 +103,7 @@ export default function Food() {
 
 
     const SaveFunction = async () => {
-        setLoading(true)
+        setLoadingSaveBTN(true)
         let obj = {
             "date": new Date().toISOString().split('T')[0],
             "plan": plan,
@@ -119,7 +120,7 @@ export default function Food() {
         }).then((res) => res.json())
             .then((res) => {
                 if (res.msg === "Data has been added") {
-                    setLoading(false)
+                    setLoadingSaveBTN(false)
                     setSelectFood([])
                     window.localStorage.removeItem("todayData")
                     localStorage.setItem('todayCalories', calorie)
@@ -133,7 +134,7 @@ export default function Food() {
                 console.log(res)
             })
             .catch((err) => {
-                setLoading(false)
+                setLoadingSaveBTN(false)
                 console.log(err)
             })
     }
@@ -206,7 +207,7 @@ export default function Food() {
                         <option value="dinner">Dinner</option>
                     </select>
                     <select name="" id="" onChange={(e) => FilterByCalories(e.target.value)}>
-                        <option value="">Filter by Calories</option>
+                        <option value="">Sort by Calories</option>
                         <option value="ascending">Ascending</option>
                         <option value="descending">Descending</option>
 
@@ -252,7 +253,7 @@ export default function Food() {
                         </div>
 
                         {totalCalories == 0 ? "" : <h1 className="total_calories_amount" >Total Calories : <b>{totalCalories}</b></h1>}
-                        {totalCalories == 0 ? <h1 style={{ fontSize: "20px", fontWeight: "bold" }}>Add food to calculate calories</h1> : <button onClick={SaveFunction}>{loading ? <Spinner /> : "Save"}</button>}
+                        {totalCalories == 0 ? <h1 style={{ fontSize: "20px", fontWeight: "bold" }}>Add food to calculate calories</h1> : <button onClick={SaveFunction}>{loadingSaveBTN ? <Spinner /> : "Save"}</button>}
 
                     </div>
                 </div>

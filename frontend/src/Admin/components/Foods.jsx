@@ -132,7 +132,7 @@ export default function Foods(props) {
               <Modal isOpen={isOpen} onClose={onClose}>
                 {/* <ModalOverlay /> */}
                 <ModalContent>
-                  <ModalHeader>Modal Title</ModalHeader>
+                  <ModalHeader>Fill the details</ModalHeader>
                   <ModalCloseButton />
                   <ModalBody>
                     <Input placeholder='Food name' onChange={(e) => setFoodName(e.target.value)} />
@@ -140,7 +140,7 @@ export default function Foods(props) {
                     <Input placeholder='Food Image' onChange={(e) => setFoodimage(e.target.value)} />
                     {/* <Input placeholder='Time "breakfast" "Lunch" "Dinner" ' onChange={(e) => setEatTime(e.target.value)} /> */}
                     <select name="" id="" onChange={(e) => setEatTime(e.target.value)}>
-                      <option value="Choose time"></option>
+                      <option value="Choose time">Chhose time</option>
                       <option value="breakfast">Breakfast</option>
                       <option value="lunch">Lunch</option>
                       <option value="dinner">Dinner</option>

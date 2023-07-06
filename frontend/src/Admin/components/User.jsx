@@ -105,7 +105,7 @@ export default function User(props) {
                     <Modal isOpen={isOpen} onClose={onClose}>
                         {/* <ModalOverlay /> */}
                         <ModalContent>
-                            <ModalHeader>Modal Title</ModalHeader>
+                            <ModalHeader>Fill the details</ModalHeader>
                             <ModalCloseButton />
                             <ModalBody>
                                 <Input placeholder='First Name' onChange={(e) => setFirstname(e.target.value)} />

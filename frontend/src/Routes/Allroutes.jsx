@@ -11,6 +11,8 @@ import Login from '../Pages/Login'
 import Notes from '../Pages/Notes'
 import Profile from '../Pages/Profile'
 import Register from '../Pages/Register'
+import PrivateRouteForAdmin from './PrivateRouteForAdmin'
+import PrivateRouteForAuth from './PrivateRouteForAuth'
 
 export default function Allroutes() {
     return (
@@ -18,14 +20,30 @@ export default function Allroutes() {
             <Route path='/' element={<Home />}></Route>
             <Route path='/register' element={<Register />}></Route>
             <Route path='/login' element={<Login />}></Route>
-            <Route path='/fooddiet' element={<Foods />}></Route>
-            <Route path='/profile' element={<Profile />}></Route>
-            <Route path='/history' element={<History />}></Route>
-            <Route path='/admin' element={<Dashboard />}></Route>
-            <Route path='/notes' element={<Notes />}></Route>
-            <Route path='/activity' element={<Activity />}></Route>
-            <Route path='/notes/:id' element={<EditIntake />}></Route>
-            <Route path='/notes/:id' element={<Edit2 />}></Route>
+            <Route path='/fooddiet' element={
+                <PrivateRouteForAuth><Foods /></PrivateRouteForAuth>
+            }></Route>
+            <Route path='/profile' element={
+                <PrivateRouteForAuth><Profile /></PrivateRouteForAuth>
+            }></Route>
+            <Route path='/history' element={
+                <PrivateRouteForAuth><History /></PrivateRouteForAuth>
+            }></Route>
+            <Route path='/admin' element={
+                <PrivateRouteForAdmin><Dashboard /></PrivateRouteForAdmin>
+            }></Route>
+            <Route path='/notes' element={
+                <PrivateRouteForAuth><Notes /></PrivateRouteForAuth>
+            }></Route>
+            <Route path='/activity' element={
+                <PrivateRouteForAuth><Activity /></PrivateRouteForAuth>
+            }></Route>
+            <Route path='/notes/:id' element={
+                <PrivateRouteForAuth><EditIntake /></PrivateRouteForAuth>
+            }></Route>
+            <Route path='/notes/:id' element={
+                <PrivateRouteForAuth><Edit2 /></PrivateRouteForAuth>
+            }></Route>
         </Routes>
     )
 }

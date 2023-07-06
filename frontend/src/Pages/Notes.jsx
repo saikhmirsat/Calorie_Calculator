@@ -161,8 +161,12 @@ export default function Notes() {
 
     return (
         <div>
-            <input type="date" onChange={(e) => filterdateFunc(e.target.value)} /><button onClick={resteFunc}>Reset</button>
-            <Button onClick={onOpen} m="20px" bg='#1F427F' color='white' _hover={{ bg: "#EA9F37" }}>Add Notes</Button>
+            <div className='notes_filter_div_con'>
+                <div>
+                    <label htmlFor="">Filter by date: </label><input type="date" onChange={(e) => filterdateFunc(e.target.value)} /><button onClick={resteFunc}>Reset</button>
+                </div>
+                <Button onClick={onOpen} m="20px" bg='#1F427F' color='white' _hover={{ bg: "#EA9F37" }}>Add Notes</Button>
+            </div>
 
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />

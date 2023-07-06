@@ -17,6 +17,15 @@
     margin-bottom: 30px;
 }
 
+.profile_admin_dash_btn {
+    border: 1px solid grey;
+    margin-right: 20px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: #ea9f37;
+    font-weight: bold;
+}
+
 .profile_container_1>h1 {
     width: 83%;
     margin: auto;

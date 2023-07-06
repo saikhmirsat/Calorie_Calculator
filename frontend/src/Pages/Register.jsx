@@ -72,8 +72,8 @@ export default function Register() {
                 <h1 style={{ fontSize: '30px', fontWeight: 'bold', marginBottom: '15px' }}>Register</h1>
                 <input type="text" placeholder='First Name' onChange={(e) => setFname(e.target.value)} />
                 <input type="text" placeholder='Last Name' onChange={(e) => setLname(e.target.value)} />
-                <input type="text" placeholder='Email' onChange={(e) => setEmail(e.target.value)} />
-                <input type="text" placeholder='Password' onChange={(e) => setPassword(e.target.value)} />
+                <input type="email" placeholder='Email' onChange={(e) => setEmail(e.target.value)} />
+                <input type="password" placeholder='Password' onChange={(e) => setPassword(e.target.value)} />
                 <div>
                     <select name="" id="" onChange={(e) => setGender(e.target.value)}>
                         <option value="">Gender</option>

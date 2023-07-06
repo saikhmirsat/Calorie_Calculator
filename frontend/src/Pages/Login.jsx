@@ -92,8 +92,8 @@ export default function Login() {
         <div className='login_main_con'>
             <div className='loginContainer' >
                 <h1 style={{ fontSize: '30px', fontWeight: 'bold', marginBottom: '15px' }}>Login</h1>
-                <input type="text" placeholder='email' onChange={(e) => setEmail(e.target.value)} />
-                <input type="text" placeholder='password' onChange={(e) => setpassword(e.target.value)} />
+                <input type="email" placeholder='email' onChange={(e) => setEmail(e.target.value)} />
+                <input type="password" placeholder='password' onChange={(e) => setpassword(e.target.value)} />
                 <button onClick={Login}>{loading ? <Spinner /> : "Login"}</button>
             </div>
         </div>

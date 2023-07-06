@@ -3,6 +3,7 @@ import "./Home.css"
 
 import eatHealthy from '../Images/eathealthy.jpg'
 import gym from '../Images/gym.webp'
+import { useNavigate } from 'react-router-dom'
 
 
 
@@ -23,8 +24,13 @@ export default function Home() {
     let needCal = calorie - TodayCal - TodayBurnedCal
     console.log(needCal)
 
-
-
+    const navigate = useNavigate()
+    const gotoFood = () => {
+        navigate('/fooddiet')
+    }
+    const gotoACtivity = () => {
+        navigate('/activity')
+    }
 
 
     return (
@@ -52,7 +58,7 @@ export default function Home() {
                     <div>
                         <h2>Feed Your Body, <br /> Fuel Your Journey.</h2>
                         <p>Eating healthy improves your physical and mental well-being, giving you more energy and reducing the risk of diseases.</p>
-                        <button>choose food</button>
+                        <button onClick={gotoFood}>choose food</button>
                     </div>
                     <div>
                         <img src={eatHealthy} alt="" />
@@ -65,7 +71,7 @@ export default function Home() {
                     <div>
                         <h2>Be Active,<br /> Be Alive</h2>
                         <p>Exercise boosts your mood, strengthens your muscles and bones, improves heart health, and helps maintain a healthy weight.</p>
-                        <button>Choose calorie to burn</button>
+                        <button onClick={gotoACtivity}>Choose calorie to burn</button>
                     </div>
                 </div>
             </div>

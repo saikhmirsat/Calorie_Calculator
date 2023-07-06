@@ -11,6 +11,21 @@
     padding: 20px;
 }
 
+.food_con_filter_div {
+    /* border: 1px solid red; */
+    width: 30%;
+    gap: 20px;
+    text-align: left;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.food_con_filter_div>select {
+    border: 1px solid grey;
+    background-color: aliceblue;
+}
+
 .loading_gif_foodshown_con {
     /* border: 1px solid red; */
     width: 100%;

@@ -32,7 +32,7 @@ export default function Notes() {
     const [Target_achieved_calories_burned, setTarget_achieved_calories_burned] = useState("")
     const [createDate, setCreateDate] = useState("")
 
-
+    const [nodata, setNodata] = useState(false)
     const { isAuth } = useContext(ImportantContext)
 
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -133,9 +133,35 @@ export default function Notes() {
             console.log(err)
         }
     }
+    const filterdateFunc = async (value) => {
+        setNodata(false)
+        try {
+            await fetch(`https://vast-red-vulture-sock.cyclic.app/datas/${id}`, {
+                headers: {
+                    'Authorization': token
+                }
+            })
+                .then((res) => res.json())
+                .then((res) => {
+                    const filterData = res.filter((ele) => ele.createDate == value)
+                    if (filterData == "") {
+                        setNodata(true)
+                    } else {
+                        setData(filterData)
+                    }
+                })
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    const resteFunc = () => {
+        getData()
+    }
 
     return (
         <div>
+            <input type="date" onChange={(e) => filterdateFunc(e.target.value)} /><button onClick={resteFunc}>Reset</button>
             <Button onClick={onOpen} m="20px" bg='#1F427F' color='white' _hover={{ bg: "#EA9F37" }}>Add Notes</Button>
 
             <Modal isOpen={isOpen} onClose={onClose}>
@@ -180,7 +206,7 @@ export default function Notes() {
 
             {
 
-                data.map((ele) =>
+                nodata ? <h1>No data found</h1> : data.map((ele) =>
                     <div className='Home_Table_details' key={ele._id}>
                         <div><p>{ele.createDate}</p></div>
                         <div><p>{ele.name}</p></div>

@@ -2,6 +2,25 @@
     /* border: 1px solid red; */
 }
 
+.History_container>div>h1 {
+    border: 1px solid black;
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    width: 40%;
+    margin: auto;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    background-color: #EA9F37;
+}
+
+.data_not_found_history {
+    font-size: large;
+    color: red;
+    margin-top: 100px;
+}
+
 .History_container>h1 {
     border: 1px solid black;
     border-radius: 10px;
@@ -15,17 +34,24 @@
     background-color: #EA9F37;
 }
 
-.History_container>input {
-    /* border: 1px solid grey; */
+.History_container input {
+    border: 1px solid grey;
+    height: 25px;
     margin-bottom: 5px;
     background-color: #EA9F37;
     border-radius: 5px;
     padding: 2px 5px;
 }
 
+.History_container>div:nth-child(1) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .His_box {
-    /* border: 1px solid green; */
-    height: 300px;
+    border: 1px solid grey;
+    height: 305px;
     overflow-x: scroll;
 }
 

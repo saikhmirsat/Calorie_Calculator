@@ -6,10 +6,7 @@ import Cookies from 'js-cookie';
 
 export default function Food() {
     const [saveShown, setSaveshow] = useState(false)
-
     const planFromLs = localStorage.getItem('plan') || ''
-    const [Timefiltervalue, setTimeFiltervalue] = useState("")
-
     const [plan, setPlan] = useState(planFromLs)
     const [food, setFood] = useState([])
     const [loading, setLoading] = useState(false)
@@ -46,6 +43,7 @@ export default function Food() {
                 setLoading(false)
                 // console.log(res)
                 setFood(res)
+
 
             })
             .catch(err => {
@@ -161,6 +159,32 @@ export default function Food() {
 
     }
 
+    const FilterByCalories = async (value) => {
+        setLoading(true)
+        await fetch(`https://vast-red-vulture-sock.cyclic.app/foods`, {
+            headers: {
+                'Authorization': tokenFromCookies
+            }
+        }).then(res => res.json())
+            .then(res => {
+                setLoading(false)
+                const sortedData = res.sort((a, b) => {
+                    if (value === 'ascending') {
+                        return a.Calories - b.Calories;
+                    } else if (value === 'descending') {
+                        return b.Calories - a.Calories;
+                    } else {
+                        return
+                    }
+                });
+                setFood(sortedData)
+            })
+            .catch(err => {
+                setLoading(false)
+                console.log(err)
+            })
+    }
+
 
 
     return (
@@ -174,12 +198,20 @@ export default function Food() {
                     </select>
 
                 </div>
-                <select name="" id="" onChange={(e) => FilterFunc(e.target.value)}>
-                    <option value="">Filter</option>
-                    <option value="breakfast">Breakfast</option>
-                    <option value="lunch">Lunch</option>
-                    <option value="dinner">Dinner</option>
-                </select>
+                <div className='food_con_filter_div'>
+                    <select name="" id="" onChange={(e) => FilterFunc(e.target.value)}>
+                        <option value="">Filter by time</option>
+                        <option value="breakfast">Breakfast</option>
+                        <option value="lunch">Lunch</option>
+                        <option value="dinner">Dinner</option>
+                    </select>
+                    <select name="" id="" onChange={(e) => FilterByCalories(e.target.value)}>
+                        <option value="">Filter by Calories</option>
+                        <option value="ascending">Ascending</option>
+                        <option value="descending">Descending</option>
+
+                    </select>
+                </div>
                 <div className='FoodContainer' >
                     <div>
                         {loading ? <img className='loading_gif_foodshown_con' width='300px' src="https://kostt.com/assets/img/preloader.gif" alt="" /> :

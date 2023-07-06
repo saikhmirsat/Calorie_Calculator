@@ -7,6 +7,12 @@
     gap: 20px;
 }
 
+.activity_filter_select {
+    border: 1px solid greenyellow;
+    background-color: aliceblue;
+    margin-top: 20px;
+}
+
 .seleceted_activity_main_con img {
     height: 100px;
     width: 100%;

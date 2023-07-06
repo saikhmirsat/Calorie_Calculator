@@ -207,10 +207,40 @@ export default function Activity() {
         setTotalCalories(sum)
         localStorage.setItem('FinalBurneCalories', sum)
     }
-
+    const FilterByCalories = async (value) => {
+        setLoading(true)
+        await fetch(`https://vast-red-vulture-sock.cyclic.app/activity`, {
+            headers: {
+                'Authorization': tokenFromCookies
+            }
+        }).then(res => res.json())
+            .then(res => {
+                setLoading(false)
+                const sortedData = res.sort((a, b) => {
+                    if (value === 'ascending') {
+                        return a.calorieBurned - b.calorieBurned;
+                    } else if (value === 'descending') {
+                        return b.calorieBurned - a.calorieBurned;
+                    } else {
+                        return
+                    }
+                });
+                setFood(sortedData)
+            })
+            .catch(err => {
+                setLoading(false)
+                console.log(err)
+            })
+    }
 
     return (
         <div>
+            <select className='activity_filter_select' name="" id="" onChange={(e) => FilterByCalories(e.target.value)}>
+                <option value="">Filter by Calories Burned</option>
+                <option value="ascending">Ascending</option>
+                <option value="descending">Descending</option>
+
+            </select>
             <div>
                 <div className='filterContainer' >
 

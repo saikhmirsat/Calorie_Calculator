@@ -5,6 +5,10 @@
     grid-template-columns: repeat(2, 1fr);
 }
 
+.hide_home_first_con {
+    display: none;
+}
+
 .home_calory_detail_container>div {
     /* border: 1px solid gold; */
     height: 100%;

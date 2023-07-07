@@ -4,12 +4,14 @@ import "./Home.css"
 import eatHealthy from '../Images/eathealthy.jpg'
 import gym from '../Images/gym.webp'
 import { useNavigate } from 'react-router-dom'
+import Cookies from 'js-cookie'
 
 
 
 
 
 export default function Home() {
+    const isAuth = Cookies.get('isAuth')
 
     const TodayCal = localStorage.getItem('todayCalories') || 0
     const TodayBurnedCal = localStorage.getItem('todayBurnedCalories') || 0
@@ -35,7 +37,7 @@ export default function Home() {
 
     return (
         <div>
-            <div className='home_calory_detail_container'>
+            <div className={isAuth?'home_calory_detail_container':"hide_home_first_con"}>
                 <div className='home_calorie_child1'>
                     <h1>Hello {user.firstname}</h1>
                     <p>Calories are important because they provide the energy needed for various bodily functions and physical activities. By understanding and calculating your calorie intake, you can make informed decisions about your diet and ensure you're meeting your energy needs.</p>

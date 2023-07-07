@@ -44,7 +44,7 @@ export default function Login() {
                         Cookies.set('token', token, { expires: expirationTime });
                         Cookies.set('isAuth', true, { expires: expirationTime });
                         Cookies.set('role', res.user[0].role, { expires: expirationTime });
-                        alert('Login SUccessful')
+                        alert('Login Successful')
                         let user = JSON.parse(localStorage.getItem('userdetails'))
                         let young = ""
                         let mature = ""

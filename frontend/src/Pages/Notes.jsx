@@ -153,11 +153,53 @@ export default function Notes() {
         getData()
     }
 
+    function sortByCreateDateAscending(a, b) {
+        var dateA = new Date(a.createDate);
+        var dateB = new Date(b.createDate);
+        return dateA - dateB;
+    }
+
+    function sortByCreateDateDescending(a, b) {
+        var dateA = new Date(a.createDate);
+        var dateB = new Date(b.createDate);
+        return dateB - dateA;
+    }
+
+    const DateSortFunc = async (value) => {
+        console.log(value)
+        try {
+            await fetch(`https://vast-red-vulture-sock.cyclic.app/datas/${id}`, {
+                headers: {
+                    'Authorization': token
+                }
+            })
+                .then((res) => res.json())
+                .then((res) => {
+                    if (value == "assending") {
+                        res.sort(sortByCreateDateAscending)
+                        setData(res)
+                    } else if (value == "descending") {
+                        res.sort(sortByCreateDateDescending)
+                        setData(res)
+                    } else {
+                        setData(res)
+                    }
+                })
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
     return (
         <div>
             <div className='notes_filter_div_con'>
                 <div>
                     <label htmlFor="">Filter by date: </label><input type="date" onChange={(e) => filterdateFunc(e.target.value)} /><button onClick={resteFunc}>Reset</button>
+                    <select name="" id="" onChange={(e) => DateSortFunc(e.target.value)}>
+                        <option value="">Sort by date</option>
+                        <option value="assending">assending</option>
+                        <option value="descending">decsending</option>
+                    </select>
                 </div>
                 <Button onClick={onOpen} m="20px" bg='#1F427F' color='white' _hover={{ bg: "#EA9F37" }}>Add Notes</Button>
             </div>

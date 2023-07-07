@@ -16,8 +16,6 @@ import {
 
 import { useState } from 'react'
 import { useEffect } from 'react'
-import { useContext } from 'react'
-import { ImportantContext } from '../Context/ImportantContext'
 import { useNavigate } from 'react-router-dom'
 
 
@@ -31,12 +29,8 @@ export default function Notes() {
     const [Target_calories_burned, setTarget_calories_burned] = useState("")
     const [Target_achieved_calories_burned, setTarget_achieved_calories_burned] = useState("")
     const [createDate, setCreateDate] = useState("")
-
     const [nodata, setNodata] = useState(false)
-    const { isAuth } = useContext(ImportantContext)
-
     const { isOpen, onOpen, onClose } = useDisclosure()
-
     const token = localStorage.getItem('logintoken')
 
     const user = JSON.parse(localStorage.getItem('userdetails')) || 0

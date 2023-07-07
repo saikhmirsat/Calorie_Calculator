@@ -13,21 +13,12 @@ export default function Activity() {
     const [loading, setLoading] = useState(false)
     const [loadingSaveBTN, setLoadingSaveBTN] = useState(false)
     const totalFronLs = +localStorage.getItem('total_calories') || 0
-
     const [totalCalories, setTotalCalories] = useState(totalFronLs)
-    // localStorage.setItem('FinalBurneCalories', totalCalories)
-    // console.log({ "total Cal": totalCalories })
     const todayActivity = JSON.parse(localStorage.getItem('todayActivity')) || []
-
-
     const [selectFood, setSelectFood] = useState(todayActivity)
-
     const todayLocalStorageData = JSON.parse(localStorage.getItem('todayActivity')) || []
-
     let calorie = localStorage.getItem('total_calories') || 0
-
     const tokenFromCookies = Cookies.get('token')
-
     const getData = async () => {
 
         setLoading(true)

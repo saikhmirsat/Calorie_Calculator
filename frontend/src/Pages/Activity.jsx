@@ -292,7 +292,7 @@ export default function Activity() {
                             }
                         </div>
 
-                        {totalCalories == 0 ? "" : <h1 className="total_calories_amount" >Total Calories : <b>{totalCalories}</b></h1>}
+                        {totalCalories == 0 ? "" : <h1 className="total_calories_amount" >Total Calories burned : <b>{totalCalories}</b></h1>}
                         {totalCalories == 0 ? <h1 style={{ fontSize: "20px", fontWeight: "bold" }}>Add food to calculate calories</h1> : <button onClick={SaveFunction}>{loadingSaveBTN ? <Spinner /> : "Save"}</button>}
 
                     </div>

@@ -16,13 +16,13 @@ export default function Home() {
 
     const user = JSON.parse(localStorage.getItem('userdetails')) || 0
     const id = user._id
-    console.log(id)
+    // console.log(id)
 
     const calorie = localStorage.getItem('calories')
 
 
-    let needCal = calorie - TodayCal - TodayBurnedCal
-    console.log(needCal)
+    let MyCal = TodayCal - TodayBurnedCal
+    let needCal = calorie - MyCal
 
     const navigate = useNavigate()
     const gotoFood = () => {
@@ -48,7 +48,7 @@ export default function Home() {
 
                         <h1>Your today consumed calories number : {TodayCal}</h1>
                         <h1>Your today Burned calories number : {TodayBurnedCal}</h1>
-                        <h1>To fullfill your daily calories requirement you have to consume rest <b>{needCal}+</b> calories.  </h1>
+                        {TodayCal == 0 && TodayBurnedCal == 0 ? "" : MyCal >= 3000 ? <h1 style={{ color: 'green' }}> Congratulations <b>{user.firstname}</b> today you have completed daily calories requirement.</h1> : <h1>To fullfill your daily calories requirement you have to consume rest <b>{needCal}+</b> calories.  </h1>}
                     </div>
                 </div>
             </div>

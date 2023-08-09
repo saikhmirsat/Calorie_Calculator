@@ -6,6 +6,9 @@ import './Register.css'
 
 export default function Register() {
 
+    const [hide, setHide] = useState(false)
+    console.log({ "sta": hide })
+
     const [firstname, setFname] = useState("")
     const [lastname, setLname] = useState("")
     const [email, setEmail] = useState("")
@@ -19,6 +22,7 @@ export default function Register() {
 
 
     const Navigate = useNavigate()
+
 
     const Register = async () => {
 
@@ -35,7 +39,6 @@ export default function Register() {
         } else if (firstname == "" || lastname == "" || email == "" || password == "" || gender == "" || age == "" || height == "" || weight == "") {
             alert("Please check again!")
         } else {
-
             try {
                 setLoading(true)
                 await fetch(`https://vast-red-vulture-sock.cyclic.app/users/register`, {
@@ -61,10 +64,6 @@ export default function Register() {
                 setLoading(false)
             }
         }
-
-
-
-
     }
     return (
         <div className='register_main_con'>
@@ -73,7 +72,7 @@ export default function Register() {
                 <input type="text" placeholder='First Name' onChange={(e) => setFname(e.target.value)} />
                 <input type="text" placeholder='Last Name' onChange={(e) => setLname(e.target.value)} />
                 <input type="email" placeholder='Email' onChange={(e) => setEmail(e.target.value)} />
-                <input type="password" placeholder='Password' onChange={(e) => setPassword(e.target.value)} />
+                <input type={!hide ? 'Password' : 'text'} placeholder="Password" onChange={(e) => setPassword(e.target.value)} /><span onClick={() => setHide(!hide)}>{!hide ? "unhide" : "hide"}</span>
                 <div>
                     <select name="" id="" onChange={(e) => setGender(e.target.value)}>
                         <option value="">Gender</option>

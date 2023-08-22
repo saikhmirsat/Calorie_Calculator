@@ -1,34 +1,53 @@
 .login_main_con {
-    padding-top: 100px;
+  padding-top: 100px;
 }
 
 .loginContainer {
-    /* border: 1px solid green; */
-    width: 40%;
-    margin: auto;
-    padding: 30px;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  /* border: 1px solid green; */
+  width: 40%;
+  margin: auto;
+  padding: 30px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
 .loginContainer input {
-    border: 1px solid rgb(200, 197, 197);
-    width: 96%;
-    padding: 10px;
-    margin-bottom: 10px;
-    outline: none;
+  border: 1px solid rgb(200, 197, 197);
+  width: 96%;
+  padding: 10px;
+  margin-bottom: 10px;
+  outline: none;
 }
 
 .loginContainer button {
-    width: 50%;
-    padding: 10px;
-    font-size: medium;
-    background-color: #FDE000;
-    border: 1px solid #FDE000;
-    cursor: pointer;
-    border-radius: 3px;
+  width: 50%;
+  padding: 10px;
+  font-size: medium;
+  background-color: #fde000;
+  border: 1px solid #fde000;
+  cursor: pointer;
+  border-radius: 3px;
 }
 
 .loginContainer button:hover {
-    background-color: white;
-    transition: all 700ms;
+  background-color: white;
+  transition: all 700ms;
+}
+
+.login_password_div {
+  margin: auto;
+  width: 96%;
+  height: 40px;
+  border: 1px solid rgb(199, 197, 197);
+
+  margin-bottom: 10px;
+  display: flex;
+}
+.login_password_div input {
+  border: none;
+  height: 100%;
+}
+.login_password_div div {
+  display: flex;
+  align-items: center;
+  padding: 5px;
 }
